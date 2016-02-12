@@ -113,6 +113,8 @@ ECMAScript 2016 also implemented [tagged template strings](https://developer.moz
 We propose that a global tagged template string called `html` provide the interface to accept template strings as input and return to the developer the parsed DOM element.
 
 ```js
+var min = 0, max = 99, disabled = true;
+
 html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`
 ```
 
@@ -136,7 +138,7 @@ E4H uses an AST to construct the DOM, ensuring that substitutions are made safe 
 
 ### Object-like notation
 
-Object-like notation applies object literals to DOM creation. Instead of using a string of HTML, object-like notation uses property names and values to construct a DOM object. Libraries such as [Blisful.js](http://blissfuljs.com/) have adapted this approach.
+Object-like notation applies object literals to DOM creation. Instead of using a string of HTML, object-like notation uses property names and values to construct a DOM object. Libraries such as [Blissful.js](http://blissfuljs.com/) have adapted this approach.
 
 ```js
 // blissfuljs

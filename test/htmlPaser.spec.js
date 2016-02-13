@@ -1,45 +1,6 @@
-// var webdriver = require("selenium-webdriver");
-
-// set up selenium server
-// before(function() {
-//   if (process.env.SAUCE_USERNAME != undefined) {
-//     this.browser = new webdriver.Builder()
-//     .usingServer('http://'+ process.env.SAUCE_USERNAME+':'+process.env.SAUCE_ACCESS_KEY+'@ondemand.saucelabs.com:80/wd/hub')
-//     .withCapabilities({
-//       'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-//       build: process.env.TRAVIS_BUILD_NUMBER,
-//       username: process.env.SAUCE_USERNAME,
-//       accessKey: process.env.SAUCE_ACCESS_KEY,
-//       browserName: "chrome"
-//     }).build();
-//   } else {
-//     this.browser = new webdriver.Builder()
-//     .withCapabilities({
-//       browserName: "chrome"
-//     }).build();
-//   }
-// });
-
-// after(function() {
-//   // return this.browser.quit();
-// });
-
 describe('HTML parser', function() {
 
-  // beforeEach(function() {
-  //   return this.browser.get("http://localhost:8080/page/index.html");
-  // });
-
   it('should create a single node with attributes', function(done) {
-    // this.browser.executeScript('return html`<input>`').then(function() {
-    //   console.log('arguments:', arguments);
-
-    //   var el = arguments[0];
-
-    //   done();
-    // });
-
-
     var el = html`<input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled />`;
 
     // correct node

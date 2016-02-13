@@ -116,9 +116,16 @@ ECMAScript 2016 also implemented [tagged template strings](https://developer.moz
 We propose that a global tagged template string called `html` provide the interface to accept template strings as input and return to the developer the parsed DOM element.
 
 ```js
-var min = 0, max = 99, disabled = true;
+var min = 0, max = 99, disabled = true, text = 'Hello';
 
-html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`
+// single element with attributes
+html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
+
+// single element with child elements
+html`<div class="container"><div class="row"><div class="col"><div>${text}</div></div></div></div>`;
+
+// sibling elements
+html`<li>Plane</li><li>Boat</li><li>Bike</li>`;`
 ```
 
 ## Goals

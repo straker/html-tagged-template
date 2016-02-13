@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/straker/html-tagged-template.svg?branch=master)](https://travis-ci.org/straker/html-tagged-template)
+[![Coverage Status](https://coveralls.io/repos/straker/html-tagged-template/badge.svg?branch=master&service=github)](https://coveralls.io/github/straker/html-tagged-template?branch=master)
+
 # Proposal
 
 Improve the DOM creation API so developers have a cleaner, simpler interface to DOM creation and manipulation.

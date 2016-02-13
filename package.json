@@ -1,18 +1,49 @@
 {
   "name": "html-tagged-template",
-  "description": "Improve the DOM creation API so developers have a cleaner, simpler interface to DOM creation and manipulation.",
+  "description": "Proposal to improve the DOM creation API so developers have a cleaner, simpler interface to DOM creation and manipulation.",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox"
   },
-  "author": "Steven Lambert <steven@sklambert.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/straker/html-tagged-template.git"
+  },
+  "keywords": [
+    "proposal",
+    "HTML",
+    "DOM",
+    "tagged",
+    "template",
+    "string"
+  ],
+  "author": "Steven Lambert <steven@sklambert.com> (http://sklambert.com/)",
+  "contributors": [
+    "Josh Crowther <jshcrowthe@gmail.com>"
+  ],
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/straker/html-tagged-template/issues"
+  },
+  "homepage": "https://github.com/straker/html-tagged-template",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.6",
     "gulp": "^3.9.1",
     "gulp-connect": "^2.3.1",
     "gulp-jshint": "^2.0.0",
-    "jshint": "^2.9.1"
+    "gulp-mocha": "^2.2.0",
+    "jshint": "^2.9.1",
+    "karma": "^0.13.21",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.1",
+    "karma-safari-launcher": "^0.1.1",
+    "mocha": "^2.4.5"
   }
 }

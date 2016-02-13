@@ -1,0 +1,31 @@
+{
+  "name": "html-tagged-template",
+  "description": "Proposal to improve the DOM creation API so developers have a cleaner, simpler interface to DOM creation and manipulation.",
+  "keywords": [
+    "proposal",
+    "HTML",
+    "DOM",
+    "tagged",
+    "template",
+    "string"
+  ],
+  "authors": [
+    "Steven Lambert <steven@sklambert.com> (http://sklambert.com/)",
+    "Josh Crowther <jshcrowthe@gmail.com>"
+  ],
+  "homepage": "https://github.com/straker/html-tagged-template",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/straker/html-tagged-template.git"
+  },
+  "main": "index.js",
+  "moduleType": "globals",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

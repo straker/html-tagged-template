@@ -1,19 +1,18 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-// var mocha = require('gulp-mocha');
+var Server = require('karma').Server;
 var connect = require('gulp-connect');
 
-var src = ['index.js', 'lib/**.js', 'test/**/*.*'];
-
 gulp.task('lint', function() {
-  return gulp.src(src)
+  return gulp.src('index.js')
     .pipe(jshint())
-    .pipe(jshint.reporter( 'jshint-stylish' ))
+    .pipe(jshint.reporter('jshint-stylish'))
 });
 
-gulp.task('test', ['lint'], function(done) {
-  return gulp.src('test/*.spec.js', {read: false})
-    .pipe(mocha());
+gulp.task('test', function(done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+  }, done).start();
 });
 
 gulp.task('connect', function() {
@@ -23,7 +22,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(src, ['lint']);
+  gulp.watch('index.js', ['lint']);
 });
 
 gulp.task('default', ['lint', 'test', 'watch']);

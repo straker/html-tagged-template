@@ -31,7 +31,7 @@ if (typeof window.html === 'undefined') {
     root.innerHTML = strings[0].replace(match[0], '');  // kinda hacky as it will ignore the orphaned closing tag
 
     return root;
-  }
+  };
 }
 
 })(window);

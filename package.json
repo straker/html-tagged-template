@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 10000"
+    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,6 @@
     "karma-ie-launcher": "^0.2.0",
     "karma-mocha": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
-    "mocha": "^2.4.5",
-    "selenium-webdriver": "^2.52.0"
+    "mocha": "^2.4.5"
   }
 }

@@ -144,7 +144,7 @@ Object-like notation applies object literals to DOM creation. Instead of using a
 createElement('input', {type: 'number', min: 0, max: 99, name: 'number', id: 'number', className: 'number-input', disabled: true, inside: document.body});
 ```
 
-However, this solution suffers from a few problems. First, it tends to combine content attributes (HTML attributes such as `id` or `name`) with IDL attributes (JavaScript properties such as `textContent` or `className`) which can lead to developer confusion as they don't know which attribute to use or how. For example, `class` is a reserved word in JavaScript and couldn't be used as a property name unless it was always quoted. It also tends to add helper attributes (such as `contents`) which add to the confusion.
+However, this solution suffers from a few problems. First, it tends to combine content attributes (HTML attributes such as `id` or `name`) with IDL attributes (JavaScript properties such as `textContent` or `className`) which can lead to developer confusion as they don't know which attribute to use or how. For example, `class` is a reserved word in JavaScript and couldn't be used as a property name, even though it is a content attribute, unless it was always quoted. It also tends to add helper attributes (such as `contents`) which add to the confusion.
 
 Second, it adds verbosity and complexity to the creation of nested nodes that provide only a slightly better interface to DOM creation than the standard `createElement` and `appendChild` methods. Since developers already use `innerHTML` to avoid these methods, it would seem unlikely that they would give up the convenience of `innerHTML` for a more complex and verbose solution.
 

@@ -27,7 +27,7 @@ describe('HTML parser', function() {
     return this.browser.quit();
   });
 
-  it('should create a single node with attributes', function() {
+  it('should create a single node with attributes', function(done) {
     var el = html`<input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled />`;
 
     // correct node
@@ -47,9 +47,11 @@ describe('HTML parser', function() {
     expect(el.children.length).to.equal(0);
     expect(el.parentElement).to.be.null;
     expect(el.textContent).to.be.empty;
+
+    done();
   });
 
-  it('should create a single node with children', function() {
+  it('should create a single node with children', function(done) {
     var el = html`<div class="container"><div class="row"><div class="col"><div>Hello</div></div></div></div>`;
 
     // correct container node
@@ -85,6 +87,8 @@ describe('HTML parser', function() {
     expect(leaf.children.length).to.equal(0);
     expect(leaf.parentElement).to.equal(col);
     expect(leaf.textContent).to.equal('Hello');
+
+    done();
   });
 
 });

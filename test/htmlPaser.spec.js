@@ -1,4 +1,31 @@
+var webdriver = require("selenium-webdriver");
+
 describe('HTML parser', function() {
+
+  beforeEach(function() {
+    if (process.env.SAUCE_USERNAME != undefined) {
+      this.browser = new webdriver.Builder()
+      .usingServer('http://'+ process.env.SAUCE_USERNAME+':'+process.env.SAUCE_ACCESS_KEY+'@ondemand.saucelabs.com:80/wd/hub')
+      .withCapabilities({
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+        build: process.env.TRAVIS_BUILD_NUMBER,
+        username: process.env.SAUCE_USERNAME,
+        accessKey: process.env.SAUCE_ACCESS_KEY,
+        browserName: "chrome"
+      }).build();
+    } else {
+      this.browser = new webdriver.Builder()
+      .withCapabilities({
+        browserName: "chrome"
+      }).build();
+    }
+
+    return this.browser.get("http://localhost:8000/index.html");
+  });
+
+  afterEach(function() {
+    return this.browser.quit();
+  });
 
   it('should create a single node with attributes', function() {
     var el = html`<input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled />`;

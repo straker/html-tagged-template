@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/straker/html-tagged-template.svg?branch=master)](https://travis-ci.org/straker/html-tagged-template)
-[![Coverage Status](https://coveralls.io/repos/straker/html-tagged-template/badge.svg?branch=master&service=github)](https://coveralls.io/github/straker/html-tagged-template?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/straker/html-tagged-template/badge.svg?branch=master)](https://coveralls.io/github/straker/html-tagged-template?branch=master)
 
 # Proposal
 

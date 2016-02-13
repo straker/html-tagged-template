@@ -43,7 +43,7 @@ describe('HTML parser', function() {
     var el = html`<input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled />`;
 
     // correct node
-    expect(el.nodeName).to.equal('DIV');
+    expect(el.nodeName).to.equal('INPUT');
 
     // correct attributes
     expect(el.attributes.length).to.equal(7);

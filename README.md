@@ -137,7 +137,7 @@ html`<li>Plane</li>
 1. [Easy to Use](#easy-to-use)
 1. [Secure](#secure)
 
-### Easy of Use
+### Easy to Use
 
 This proposal wouldn't exist if creating the DOM was easy. Any improvement to the DOM creation API would essentially need to replace `innerHTML` with something better and just as easy (if not easier), otherwise developers will continue to use it to work around the API.
 

@@ -143,9 +143,9 @@ This proposal wouldn't exist if creating the DOM was easy. Any improvement to th
 
 #### Proposed Solution
 
-To solve this problem, we propose a new API that will allow developers to create single, sibling, or nested child nodes with a single function call. With the addition of template strings to ECMAScript 2016, [we and others](https://lists.w3.org/Archives/Public/www-dom/2011OctDec/0170.html) feel that they are the cleanest, simplest, and most intuitive interface for DOM creation.
+To solve this problem, we propose a new API that will allow developers to create single, sibling, or nested child nodes with a single function call. With the addition of template strings to ECMAScript 2015, [we and others](https://lists.w3.org/Archives/Public/www-dom/2011OctDec/0170.html) feel that they are the cleanest, simplest, and most intuitive interface for DOM creation.
 
-ECMAScript 2016 also introduced [tagged template strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings#Tagged_template_strings) which would allow a function to accept a template string as input and return DOM. Tagged template strings also have the advantage that they can understand where variables were used in the string and be able to apply security measures to prevent XSS.
+ECMAScript 2015 also introduced [tagged template strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings#Tagged_template_strings) which would allow a function to accept a template string as input and return DOM. Tagged template strings also have the advantage that they can understand where variables were used in the string and be able to apply security measures to prevent XSS.
 
 #### Other Solutions
 

@@ -107,20 +107,7 @@ var frag = document.createDocumentFragment();
 document.querySelector('#list').appendChild(frag);
 ```
 
-## Goals
-
-1. [Easy to Use](#easy-to-use)
-1. [Secure](#secure)
-
-### Easy of Use
-
-This proposal wouldn't exist if creating the DOM was easy. Any improvement to the DOM creation API would essentially need to replace `innerHTML` with something better and just as easy (if not easier), otherwise developers will continue to use it to work around the API.
-
-#### Proposed Solution
-
-To solve this problem, we propose a new API that will allow developers to create single, sibling, or nested child nodes with a single function call. With the addition of template strings to ECMAScript 2016, [we and others](https://lists.w3.org/Archives/Public/www-dom/2011OctDec/0170.html) feel that they are the cleanest, simplest, and most intuitive interface for DOM creation.
-
-ECMAScript 2016 also introduced [tagged template strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings#Tagged_template_strings) which would allow a function to accept a template string as input and return DOM. Tagged template strings also have the advantage that they can understand where variables were used in the string and be able to apply security measures to prevent XSS.
+## Proposed Solution
 
 We propose that a global tagged template string function called `html` provide the interface to accept template strings as input and return the parsed DOM elements.
 
@@ -144,6 +131,21 @@ html`<li>Plane</li>
      <li>Boat</li>
      <li>Bike</li>`;
 ```
+
+## Goals
+
+1. [Easy to Use](#easy-to-use)
+1. [Secure](#secure)
+
+### Easy of Use
+
+This proposal wouldn't exist if creating the DOM was easy. Any improvement to the DOM creation API would essentially need to replace `innerHTML` with something better and just as easy (if not easier), otherwise developers will continue to use it to work around the API.
+
+#### Proposed Solution
+
+To solve this problem, we propose a new API that will allow developers to create single, sibling, or nested child nodes with a single function call. With the addition of template strings to ECMAScript 2016, [we and others](https://lists.w3.org/Archives/Public/www-dom/2011OctDec/0170.html) feel that they are the cleanest, simplest, and most intuitive interface for DOM creation.
+
+ECMAScript 2016 also introduced [tagged template strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings#Tagged_template_strings) which would allow a function to accept a template string as input and return DOM. Tagged template strings also have the advantage that they can understand where variables were used in the string and be able to apply security measures to prevent XSS.
 
 #### Other Solutions
 

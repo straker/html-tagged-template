@@ -1,6 +1,32 @@
 describe('HTML parser', function() {
 
-  it('should create a single node with attributes', function(done) {
+  it('should create a single node', function() {
+    var el = html`<span></span>`;
+
+    // correct node
+    expect(el.nodeName).to.equal('SPAN');
+
+    // no extraneous side-effects
+    expect(el.attributes.length, 'more than 1 attribute').to.equal(0);
+    expect(el.children.length, 'more than 1 child').to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.be.empty;
+  });
+
+  it('should create a single node when no closing tag is provided', function() {
+    var el = html`<span>`;
+
+    // correct node
+    expect(el.nodeName).to.equal('SPAN');
+
+    // no extraneous side-effects
+    expect(el.attributes.length, 'more than 1 attribute').to.equal(0);
+    expect(el.children.length, 'more than 1 child').to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.be.empty;
+  });
+
+  it('should create a single node with attributes', function() {
     var el = html`<input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled />`;
 
     // correct node
@@ -20,11 +46,9 @@ describe('HTML parser', function() {
     expect(el.children.length).to.equal(0);
     expect(el.parentElement).to.be.null;
     expect(el.textContent).to.be.empty;
-
-    done();
   });
 
-  it('should create a single node with children', function(done) {
+  it('should create a single node with children', function() {
     var el = html`<div class="container"><div class="row"><div class="col"><div>Hello</div></div></div></div>`;
 
     // correct container node
@@ -60,8 +84,6 @@ describe('HTML parser', function() {
     expect(leaf.children.length).to.equal(0);
     expect(leaf.parentElement).to.equal(col);
     expect(leaf.textContent).to.equal('Hello');
-
-    done();
   });
 
 });

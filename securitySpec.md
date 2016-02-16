@@ -17,7 +17,7 @@
 
 | Encoding Type | Encoding Mechanism |
 | ------------- | ------------------ |
-|HTML Entity Encoding | Convert & to &amp;<br>Convert < to &lt;<br>Convert > to &gt;<br>Convert " to &quot;<br>Convert ' to &#x27;<br>Convert / to &#x2F;<br> |
+|HTML Entity Encoding | Convert & to `&amp;`<br>Convert < to `&lt;`<br>Convert > to `&gt;`<br>Convert " to `&quot;`<br>Convert ' to `&#x27;`<br>Convert / to `&#x2F;`<br> |
 | HTML Attribute Encoding | Except for alphanumeric characters, escape all characters with the HTML Entity &#xHH; format, including spaces. (HH = Hex Value) |
 | URL Encoding | Standard percent encoding, see: http://www.w3schools.com/tags/ref_urlencode.asp. URL encoding should only be used to encode parameter values, not the entire URL or path fragments of a URL.
 | JavaScript Encoding | Except for alphanumeric characters, escape all characters with the \uXXXX unicode escaping format (X = Integer). |
@@ -76,12 +76,12 @@ html`<div>${text}</div>`;
 - text cannot contain angle brackets (<>) (prevent XSS from creating new tags)
 - text cannot contain JavaScript (prevent XSS from executing js)
 - escape following entities:
-  + & --> &amp;
-  + < --> &lt;
-  + > --> &qt;
-  + " --> &quot;
-  + ' --> &#x27
-  + / --> &#x2F
+  + & --> `&amp;`
+  + < --> `&lt;`
+  + > --> `&gt;`
+  + " --> `&quot;`
+  + ' --> `&#x27`
+  + / --> `&#x2F`
 - how would we allow valid HTML that is trusted?
 
 ### References

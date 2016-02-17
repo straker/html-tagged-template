@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="index.js"></script>
+</head>
+<body>
+<script>
+var min = 0, max = 99, disabled = true, heading = 1;
+
+// single node
+document.body.appendChild(html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`);
+
+// single node with children
+document.body.appendChild(html`<div class="container"><div class="row"><div class="col"><h${heading}><span>Hi</span></h${heading}></div></div></div>`);
+
+// sibling nodes
+var nodes = html`<tr><td><span>foo</span></td></tr><tr><td><span>bar</span></td></tr>`;
+nodes.forEach(function(node) {
+  document.body.appendChild(node);
+});
+
+</script>
+</body>
+</html>

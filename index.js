@@ -24,7 +24,7 @@ if (typeof window.html === 'undefined') {
 
   window.html = function(strings, ...values) {
     // break early if called with empty content
-    if (!strings && values.length === 0) {
+    if (!strings[0] && values.length === 0) {
       return;
     }
 
@@ -67,6 +67,9 @@ if (typeof window.html === 'undefined') {
       var tagName = node.nodeName.toLowerCase();
       if (tagName.indexOf(substitutionIndex) !== -1) {
         tagName = tagName.replace(substitutionRegex, replaceSubstitution);
+
+        // createElement() should not need to be escaped to prevent XSS (same as
+        // setAttribute())?
         tag = document.createElement(tagName);
 
         // move all children of the node to the new tag
@@ -77,7 +80,7 @@ if (typeof window.html === 'undefined') {
 
         node.parentNode.replaceChild(tag, node);
 
-        // transfer attributes to the next tag in the attributes loop so we
+        // transfer attributes to the new tag in the attributes loop so we
         // only loop through them once
       }
 
@@ -104,6 +107,9 @@ if (typeof window.html === 'undefined') {
         }
 
         // add the attribute to the new tag or replace it on the current node
+        // setAttribute() does not need to be escaped to prevent XSS since it does
+        // all of that for use
+        // @see https://www.mediawiki.org/wiki/DOM-based_XSS
         if (tag || hasSubstitution) {
           (tag || node).setAttribute(name, value);
         }
@@ -113,7 +119,7 @@ if (typeof window.html === 'undefined') {
     // node contents
 
     // return an array of children instead of a HTMLCollection, compliant with
-    // the new DOM spec to make collections an Array.
+    // the new DOM spec to make collections an Array
     // @see https://dom.spec.whatwg.org/#element-collections
     if (template.content.children.length > 1) {
       return Array.from(template.content.children);

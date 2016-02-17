@@ -16,7 +16,7 @@ Below are just a few examples of how DOM creation requires multiple lines of cod
   Create a single element with attributes:
   <input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled/>
 */
-var input = document.createElement('input');
+let input = document.createElement('input');
 input.type = "number";
 input.min = 0;
 input.max = 99;
@@ -27,7 +27,7 @@ input.disabled = true;
 document.body.appendChild(input);
 
 // or the hacky way - create a throwaway parent node just to use innerHTML
-var div = document.createElement('div');
+let div = document.createElement('div');
 div.innerHTML = '<input type="number" min="0" max="99" name="number" id="number" class="number-input" disabled/>';
 document.body.appendChild(div.firstChild);
 
@@ -43,26 +43,26 @@ document.body.appendChild(div.firstChild);
    </div>
  */
 // use document fragment to batch appendChild calls for good performance
-var frag = document.createDocumentFragment();
-var div = document.createElement('div');
+let frag = document.createDocumentFragment();
+let div = document.createElement('div');
 div.classList.add('container');
 frag.appendChild(div);
 
-var row = document.createElement('div');
+let row = document.createElement('div');
 row.classList.add('row');
 div.appendChild(row);
 
-var col = document.createElement('div');
+let col = document.createElement('div');
 col.classList.add('col');
 row.appendChild(col);
 
-var child = document.createElement('div');
+let child = document.createElement('div');
 child.appendChild(document.createTextNode('Hello'));  // or child.textContext = 'Hello';
 col.appendChild(child);
 document.body.appendChild(frag);
 
 // or the convenient way using innerHTML
-var div = document.createElement('div');
+let div = document.createElement('div');
 div.classList.add('container');
 div.innerHTML = '<div class="row"><div class="col"><div>Hello</div></div></div>';
 document.body.appendChild(div);
@@ -83,8 +83,8 @@ document.body.appendChild(div);
      <li>Bike</li>
    </ul>
  */
-var frag = document.createDocumentFragment();
-var li = document.createElement('li');
+let frag = document.createDocumentFragment();
+let li = document.createElement('li');
 li.textContent = 'Plane';
 frag.appendChild(li);
 
@@ -98,9 +98,9 @@ frag.appendChild(li);
 document.querySelector('#list').appendChild(frag);
 
 // or if you have the ability to create it through a loop
-var frag = document.createDocumentFragment();
+let frag = document.createDocumentFragment();
 ['Plane', 'Boat', 'Bike'].forEach(function(item) {
-  var li = document.createElement('li');
+  let li = document.createElement('li');
   li.textContent = item;
   frag.appendChild(li);
 });
@@ -112,7 +112,7 @@ document.querySelector('#list').appendChild(frag);
 We propose that a global tagged template string function called `html` provide the interface to accept template strings as input and return the parsed DOM elements.
 
 ```js
-var min = 0, max = 99, disabled = true, text = 'Hello';
+let min = 0, max = 99, disabled = true, text = 'Hello';
 
 // single element with attributes
 html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;

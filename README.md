@@ -175,8 +175,10 @@ createElement('div', {className: 'container', inside: document.body, contents: [
 
 XSS attacks via string concatenation are among the most prevalent types of security threats the web development world faces. Tagged template strings provide a unique opportunity to make creating DOM much more secure than string concatenation ever could. Tagged template strings know exactly where the user substitution expressions are located in the string, enabling us to apply preventative measures to help ensure the resulting DOM is safe from XSS attacks.
 
-#### Proposed Solutions
+#### Proposed Solution
 
 There have been two proposed solutions for making template strings secure against XSS: [E4H](http://www.hixie.ch/specs/e4h/strawman), championed by Ian Hixie, and [contextual auto escaping](https://js-quasis-libraries-and-repl.googlecode.com/svn/trunk/safetemplate.html#security_under_maintenance), championed by Mike Samuel. 
 
 E4H uses an AST to construct the DOM, ensuring that substitutions are made safe against element and attribute injection. Contextual auto escaping tries to understand the context of the attribute or element in the DOM and correctly escape the substitution based on it's context.
+
+We propose combining the best ideas from both E4H and contextual auto escaping and avoiding the problems that both encountered. First, the template string is sanitized by removing all substitution expressions, removing all XSS attacks, while leaving placeholders in the resulting string that identify the substitution that belongs there. Next, the string is passed to an HTML `template` tag using `innerHTML`, which runs the string through the HTML parser and properly creates elements out of context (such as `<tr>` elements). Finally, all placeholders are identified and replaced with their substitution using the DOM APIs `createElement`, `createTextNode`, and `setAttribute`, and then using contextual auto escaping to prevent further XSS attack vectors.

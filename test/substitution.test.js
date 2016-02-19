@@ -32,7 +32,7 @@ describe('Substitution expressions', function() {
     expect(el.nodeName).to.equal('INPUT');
 
     // correct attributes
-    expect(el.attributes.length).to.equal(7);
+    expect(el.attributes.length).to.equal(6);
     expect(el.type).to.equal('number');
     expect(el.min).to.equal('0');
     expect(el.name).to.equal('number');

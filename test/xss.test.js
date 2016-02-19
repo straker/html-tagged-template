@@ -24,7 +24,7 @@ describe('XSS Attack Vectors', function() {
   });
 
   it('should prevent injection to double quoted element attributes', function() {
-    var el = html`<div data-xss="${xss}""></div>`;
+    var el = html`<div data-xss="${xss}"></div>`;
     document.body.appendChild(el);
   });
 
@@ -49,11 +49,6 @@ describe('XSS Attack Vectors', function() {
     var el = html`<a href='#' onclick="${xss}">XSS &lt;p&gt; tag</a>`;
     document.body.appendChild(el);  
     el.click();
-  });
-
-  it('should FAIL when injected into setInterval', function() {
-    var el = html`<script>window.setTimeout('${xss}');</script>`;
-    document.body.appendChild(el);
   });
 
   it('should prevent injection into CSS unquote property', function() {

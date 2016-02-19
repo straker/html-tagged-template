@@ -3,11 +3,11 @@
 
 // test for es6 support of needed functionality
 try {
-  // spread and template strings operator
-  eval('function tag(strings, ...values) {return;}; tag`test`;');
+  // spread operator and template strings support
+  eval('function tag(strings, ...values) {return;}; tag`test`;');  // jshint ignore:line
 
-  // template support
-  if (!('content' in document.createElement('template'))) {
+  // template tag and Array.from support
+  if (!('content' in document.createElement('template') && 'from' in Array)) {
     throw new Error();
   }
 }
@@ -19,8 +19,8 @@ catch (e) {
 if (typeof window.html === 'undefined') {
 
   var substitutionIndex = 'substitutionindex:';  // tag names are always all lowercase
-  var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+)', 'g');
-  var i, j, attributes, tagName;
+  var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+):', 'g');
+  var i, j, childNodes;
 
   window.html = function(strings, ...values) {
     // break early if called with empty content
@@ -40,7 +40,7 @@ if (typeof window.html === 'undefined') {
     // (this particular placeholder will even work when used to create a DOM element)
     var str = strings[0];
     for (i = 0; i < values.length; i++) {
-      str += substitutionIndex + i + '' + strings[i+1];
+      str += substitutionIndex + i + ':' + strings[i+1];
     }
 
     // verify that the first element is valid
@@ -68,24 +68,14 @@ if (typeof window.html === 'undefined') {
       if (tagName.indexOf(substitutionIndex) !== -1) {
         tagName = tagName.replace(substitutionRegex, replaceSubstitution);
 
-        // createElement() should not need to be escaped to prevent XSS (same as
-        // setAttribute())?
+        // createElement() should not need to be escaped to prevent XSS?
         tag = document.createElement(tagName);
 
-        // move all children of the node to the new tag
-        var children = node.children;
-        for (j = 0; j < children.length; j++) {
-          tag.appendChild(children[j]);
-        }
-
         node.parentNode.replaceChild(tag, node);
-
-        // transfer attributes to the new tag in the attributes loop so we
-        // only loop through them once
       }
 
       // attributes
-      attributes = node.attributes;
+      var attributes = node.attributes;
       for (j = 0; j < attributes.length; j++) {
         var attribute = attributes[j];
         var name = attribute.name;
@@ -114,15 +104,41 @@ if (typeof window.html === 'undefined') {
           (tag || node).setAttribute(name, value);
         }
       }
+
+      // children
+      childNodes = node.childNodes;
+      for (j = 0; j < childNodes.length; j++) {
+        var childNode = childNodes[j];
+
+        // text node with substitution
+        if (childNode.nodeType === 3 &&
+            childNode.nodeValue.indexOf(substitutionIndex) !== -1) {
+          var nodeValue = childNode.nodeValue.replace(substitutionRegex, replaceSubstitution);
+
+          // createTextNode() should not need to be escaped to prevent XSS?
+          var text = document.createTextNode(nodeValue);
+
+          // if we have a new tag we'll append the text node to it instead of
+          // replacing it on the old node
+          if (!tag) {
+            node.replaceChild(text, childNode);
+          }
+          else {
+            childNode = text;
+          }
+        }
+
+        if (tag) {
+          tag.appendChild(childNode);
+        }
+      }
     }
 
-    // node contents
-
-    // return an array of children instead of a HTMLCollection, compliant with
+    // return an array of childNodes instead of an HTMLCollection, compliant with
     // the new DOM spec to make collections an Array
     // @see https://dom.spec.whatwg.org/#element-collections
-    if (template.content.children.length > 1) {
-      return Array.from(template.content.children);
+    if (template.content.childNodes.length > 1) {
+      return Array.from(template.content.childNodes);
     }
 
     return template.content.firstChild;

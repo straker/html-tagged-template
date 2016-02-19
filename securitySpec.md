@@ -23,6 +23,8 @@
 | JavaScript Encoding | Except for alphanumeric characters, escape all characters with the \uXXXX unicode escaping format (X = Integer). |
 | CSS Hex Encoding | CSS escaping supports \XX and \XXXXXX. Using a two character escape can cause problems if the next character continues the escape sequence. There are two solutions (a) Add a space after the CSS escape (will be ignored by the CSS parser) (b) use the full amount of CSS escaping possible by zero padding the value. |
 
+[Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)
+
 ## As Attribute Value
 
 ```js

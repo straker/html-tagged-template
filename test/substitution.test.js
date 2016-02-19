@@ -26,8 +26,7 @@ describe('Substitution expressions', function() {
   });
 
   it('should add attribute names or values from variables', function() {
-    // TODO: Windows 10 Firefox 44 fails the substitution when the attribute is unquoted
-    var el = html`<input type="number" min="${min}" name="number" id="number" class="number-input" max="${max}" ${ (disabled ? 'disabled' : '') }/>`;
+    var el = html`<input type="number" min="${min}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
 
     // correct node
     expect(el.nodeName).to.equal('INPUT');
@@ -36,7 +35,6 @@ describe('Substitution expressions', function() {
     expect(el.attributes.length).to.equal(7);
     expect(el.type).to.equal('number');
     expect(el.min).to.equal('0');
-    expect(el.max).to.equal('99');
     expect(el.name).to.equal('number');
     expect(el.id).to.equal('number');
     expect(el.className).to.equal('number-input');

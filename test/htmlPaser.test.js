@@ -1,5 +1,11 @@
 describe('HTML parser', function() {
 
+  it('should return null for empty string', function() {
+    var el = html``;
+
+    expect(el).to.be.empty;
+  });
+
   it('should create a text node', function() {
     var el = html`foobar`;
 

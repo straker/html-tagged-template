@@ -20,7 +20,6 @@ if (typeof window.html === 'undefined') {
 
   var substitutionIndex = 'substitutionindex:';  // tag names are always all lowercase
   var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+):', 'g');
-  var notAlphanumericRegex = /[^a-zA-Z0-9]/g;
 
   window.html = function(strings, ...values) {
     // break early if called with empty content

@@ -19,7 +19,9 @@ var nodes = html`<tr><td><span>foo</span></td></tr><tr><td><span>bar</span></td>
 nodes.forEach(function(node) {
   document.body.appendChild(node);
 });
-
 </script>
+<!-- xss attack
+     @see https://developers.google.com/closure/templates/docs/security -->
+<script src="xss.js"></script>
 </body>
 </html>

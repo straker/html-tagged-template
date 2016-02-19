@@ -20,6 +20,7 @@ if (typeof window.html === 'undefined') {
 
   var substitutionIndex = 'substitutionindex:';  // tag names are always all lowercase
   var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+):', 'g');
+  var notAlphanumericRegex = /[^a-zA-Z0-9]/g;
 
   window.html = function(strings, ...values) {
     // break early if called with empty content
@@ -62,7 +63,23 @@ if (typeof window.html === 'undefined') {
         tag = document.createElement(nodeName);
         node._replacedWith = tag;
 
-        node.parentNode.replaceChild(tag, node);
+        // use insertBefore() instead of replaceChild() so that the node Iterator
+        // doesn't think the new tag should be the next node
+        node.parentNode.insertBefore(tag, node);
+      }
+
+      // special case for script tags:
+      // using innerHTML with a string that contains a script tag causes the script
+      // tag to not be executed when added to the DOM. We'll need to create a script
+      // tag and append it's contents which will make it execute correctly.
+      // @see http://stackoverflow.com/questions/1197575/can-scripts-be-inserted-with-innerhtml
+      if ((tag || node).nodeName === 'SCRIPT') {
+        var script = document.createElement('script');
+        node._replacedWith = script;
+
+        (tag || node).parentNode.insertBefore(script, (tag || node));
+
+        tag = script;
       }
 
       // node attributes
@@ -74,7 +91,7 @@ if (typeof window.html === 'undefined') {
           var value = attribute.value;
           var hasSubstitution = false;
 
-          // attribute has substitution
+          // name has substitution
           if (name.indexOf(substitutionIndex) !== -1) {
             hasSubstitution = true;
             name = name.replace(substitutionRegex, replaceSubstitution);
@@ -83,9 +100,24 @@ if (typeof window.html === 'undefined') {
             node.removeAttribute(attribute.name);
           }
 
+          // value has substitution
           if (value.indexOf(substitutionIndex) !== -1) {
             hasSubstitution = true;
             value = value.replace(substitutionRegex, replaceSubstitution);
+
+            // contextual auto escape
+            if (name === 'href') {
+              // URI encode then only allow the : when used after http or https
+              // (will not allow any 'javascript:' or filter evasion techniques)
+              value = encodeURI(value).replace(':', function(match, index, string) {
+                  var protocol = string.substring(index-5, index);
+                  if (protocol.indexOf('http') !== -1) {
+                    return match;
+                  }
+
+                  return '\\x' + match.charCodeAt(0).toString(16).toUpperCase();
+              });
+            }
           }
 
           // add the attribute to the new tag or replace it on the current node
@@ -100,7 +132,13 @@ if (typeof window.html === 'undefined') {
 
       // append the current node to a replaced parent
       if (node.parentNode && node.parentNode._replacedWith) {
+        var parentNode = node.parentNode;
         node.parentNode._replacedWith.appendChild(node);
+
+        // remove the old node from the DOM
+        if (parentNode.childNodes.length === 0) {
+          parentNode.remove();
+        }
       }
 
       // node value
@@ -110,6 +148,8 @@ if (typeof window.html === 'undefined') {
         // createTextNode() should not need to be escaped to prevent XSS?
         var text = document.createTextNode(nodeValue);
 
+        // since the parent node has already gone through the iterator, we can use
+        // replaceChild() here
         node.parentNode.replaceChild(text, node);
       }
     }

@@ -1,5 +1,16 @@
 describe('HTML parser', function() {
 
+  it('should create a text node', function() {
+    var el = html`foobar`;
+
+    // correct node
+    expect(el.nodeType).to.equal(3);
+    expect(el.nodeValue).to.equal('foobar');
+
+    // no extraneous side-effects
+    expect(el.parentElement).to.be.null;
+  });
+
   it('should create a single node', function() {
     var el = html`<span></span>`;
 
@@ -86,4 +97,41 @@ describe('HTML parser', function() {
     expect(leaf.textContent).to.equal('Hello');
   });
 
+  it('should create sibling nodes', function() {
+    var nodes = html`<tr></tr><tr></tr>`;
+
+    // correct node
+    expect(nodes).to.be.instanceof(Array);
+    expect(nodes.length).to.equal(2);
+
+    // correct first child
+    var tr = nodes[0];
+    expect(tr.nodeName).to.equal('TR');
+    expect(tr.attributes.length, 'more than 1 attribute').to.equal(0);
+    expect(tr.children.length, 'more than 1 child').to.equal(0);
+    expect(tr.parentElement).to.be.null;
+    expect(tr.textContent).to.be.empty;
+
+    // correct second child
+    var tr2 = nodes[0];
+    expect(tr2.nodeName).to.equal('TR');
+    expect(tr2.attributes.length, 'more than 1 attribute').to.equal(0);
+    expect(tr2.children.length, 'more than 1 child').to.equal(0);
+    expect(tr2.parentElement).to.be.null;
+    expect(tr2.textContent).to.be.empty;
+  });
+
+  it('should execute a script tag', function() {
+    var el = html`<script>foo = "bar";</script>`;
+    document.body.appendChild(el);
+
+    // correct node
+    expect(el.nodeName).to.equal('SCRIPT');
+    expect(el.attributes.length).to.equal(0);
+    expect(el.children.length).to.equal(0);
+    expect(el.textContent).to.equal('foo = "bar";');
+
+    // script was executed
+    expect(foo).to.equal('bar');
+  });
 });

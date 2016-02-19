@@ -130,14 +130,16 @@ if (typeof window.html === 'undefined') {
       }
 
       // append the current node to a replaced parent
+      var parentNode;
       if (node.parentNode && node.parentNode._replacedWith) {
-        var parentNode = node.parentNode;
+        parentNode = node.parentNode;
         node.parentNode._replacedWith.appendChild(node);
+      }
 
-        // remove the old node from the DOM
-        if (parentNode.childNodes.length === 0) {
-          parentNode.remove();
-        }
+      // remove the old node from the DOM
+      if ((node._replacedWith && node.childNodes.length === 0) ||
+          (parentNode && parentNode.childNodes.length === 0) ){
+        (parentNode || node).remove();
       }
 
       // node value

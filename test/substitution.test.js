@@ -1,49 +1,79 @@
 describe('Substitution expressions', function() {
+  var min = 0, max = 99, disabled = true, heading = 1, tag = 'span';
 
-  /*
-    different ways to substitute values:
+  it('should create a text node from a variable', function() {
+    var el = html`${tag}`;
 
-    // as attribute value
-    html`<div class="${className}">Text</div>`;
+    // correct node
+    expect(el.nodeType).to.equal(3);
+    expect(el.nodeValue).to.equal('span');
 
-      - if class is not quoted, need to quote className
-      - className cannot contain unescaped quotes (prevent XSS from creating new attributes)
-      - className cannot contain an equals sign (prevent XSS from creating new attributes)
-      - className cannot contain angle brackets (<>) (prevent XSS from creating new tags)
-      - className cannot contain JavaScript (prevent XSS from executing js)
+    // no extraneous side-effects
+    expect(el.parentElement).to.be.null;
+  });
 
-    // as attribute name
-    html`<div ${attr}="value">Text</div>`;
+  it('should create a node from a variable', function() {
+    var el = html`<${tag}></${tag}>`;
 
-      - attr cannot contain whitespace (prevent XSS from creating new attributes)
-      - attr cannot contain unescaped quotes (prevent XSS from creating new attributes)
-      - attr cannot contain an equals sign (prevent XSS from creating new attributes)
-      - attr cannot contain angle brackets (<>) (prevent XSS from creating new tags)
-      - attr cannot contain JavaScript (prevent XSS from executing js)
-      - attr does not have to be a valid attribute name (any are valid, even without data-)
+    // correct node
+    expect(el.nodeName).to.equal('SPAN');
 
-    // as tag name
-    html`<${tagName}>Text</${tagName}>`;
+    // no extraneous side-effects
+    expect(el.attributes.length, 'more than 1 attribute').to.equal(0);
+    expect(el.children.length, 'more than 1 child').to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.be.empty;
+  });
 
-      - tagName cannot contain whitespace (prevent XSS from creating new attributes)
-      - tagName cannot contain unescaped quotes (prevent XSS from creating new attributes)
-      - tagName cannot contain an equals sign (prevent XSS from creating new attributes)
-      - tagName cannot contain angle brackets (<>) (prevent XSS from creating new tags)
-      - tagName cannot contain JavaScript (prevent XSS from executing js)
-      - tagName can contain : to define valid namespace (math, html, or svg), but none others
-      - tagName does not have to be a valid tag name (web components can define new ones)
+  it('should add attribute names or values from variables', function() {
+    var el = html`<input type="number" min="${min}" name="number" id="number" class="number-input" max=${max} ${ (disabled ? 'disabled' : '') }/>`;
 
-    // as HTML contents
-    html`<div>${text}</div>
+    // correct node
+    expect(el.nodeName).to.equal('INPUT');
 
-      - text cannot contain angle brackets (<>) (prevent XSS from creating new tags)
-      - text cannot contain JavaScript (prevent XSS from executing js)
-      - how would we allow valid HTML that is trusted?
+    // correct attributes
+    expect(el.attributes.length).to.equal(7);
+    expect(el.type).to.equal('number');
+    expect(el.min).to.equal('0');
+    expect(el.max).to.equal('99');
+    expect(el.name).to.equal('number');
+    expect(el.id).to.equal('number');
+    expect(el.className).to.equal('number-input');
+    expect(el.disabled).to.equal(true);
 
-    // mix
-    html`<h${level} ${attr}=${value} ${var}>${text}</h${level}>
+    // no extraneous side-effects
+    expect(el.children.length).to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.be.empty;
+  });
 
-      - ${attr}=${value} ${var} is difficult – was ${var} suppose to be part of ${attr} or it's own attribute?
-        - unless the attribute was quoted, any whitespace will be treated as a new attribute, so in the example above ${var} would be a new attribute
-  */
+  it('should move any children from a substituted node to the new node', function() {
+    var el = html`<h${heading}><span>Hello</span></h${heading}>`;
+
+    // correct heading node
+    expect(el.nodeName).to.equal('H1');
+    expect(el.attributes.length).to.equal(0);
+    expect(el.children.length).to.equal(1);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.equal('Hello');
+
+    // correct span node
+    var span = el.firstChild;
+    expect(span.nodeName).to.equal('SPAN');
+    expect(span.attributes.length, 'more than 1 attribute').to.equal(0);
+    expect(span.children.length, 'more than 1 child').to.equal(0);
+    expect(span.parentElement).to.equal(el);
+    expect(span.textContent).to.equal('Hello');
+  });
+
+  it('should substitute in script tags', function() {
+    var el = html`<script>x = ${max}</script>`;
+
+    // correct script node
+    expect(el.nodeName).to.equal('SCRIPT');
+    expect(el.attributes.length).to.equal(0);
+    expect(el.children.length).to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.equal('x = 99');
+  });
 });

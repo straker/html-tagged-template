@@ -20,7 +20,6 @@ if (typeof window.html === 'undefined') {
 
   var substitutionIndex = 'substitutionindex:';  // tag names are always all lowercase
   var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+):', 'g');
-  var i, j, childNodes;
 
   window.html = function(strings, ...values) {
     // break early if called with empty content
@@ -43,94 +42,114 @@ if (typeof window.html === 'undefined') {
       str += substitutionIndex + i + ':' + strings[i+1];
     }
 
-    // verify that the first element is valid
-    // TODO: what if the user entered html`${dom}` where dom = <div></div>?
-    if (str[0] !== '<') {
-      throw new SyntaxError('Unexpected token ' + str[0]);
-    }
-    else if (str[str.length -1] !== '>') {
-      throw new SyntaxError('Unexpected end of input');
-    }
-
     // template tags allow any HTML (even <tr> elements out of context)
     // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
     var template = document.createElement('template');
     template.innerHTML = str;
 
     // find all substitution values and safely encode them using DOM APIs
-    var nodes = template.content.querySelectorAll('*');
-    for (i = 0; i < nodes.length; i++) {
-      var node = nodes[i];
+    var walker = document.createNodeIterator(template.content, NodeFilter.SHOW_ALL);
+    var node;
+    while (node = walker.nextNode()) {
       var tag = null;
 
       // node name
-      var tagName = node.nodeName.toLowerCase();
-      if (tagName.indexOf(substitutionIndex) !== -1) {
-        tagName = tagName.replace(substitutionRegex, replaceSubstitution);
+      var nodeName = node.nodeName.toLowerCase();
+      if (nodeName.indexOf(substitutionIndex) !== -1) {
+        nodeName = nodeName.replace(substitutionRegex, replaceSubstitution);
 
         // createElement() should not need to be escaped to prevent XSS?
-        tag = document.createElement(tagName);
+        tag = document.createElement(nodeName);
+        node._replacedWith = tag;
 
-        node.parentNode.replaceChild(tag, node);
+        // use insertBefore() instead of replaceChild() so that the node Iterator
+        // doesn't think the new tag should be the next node
+        node.parentNode.insertBefore(tag, node);
       }
 
-      // attributes
-      var attributes = node.attributes;
-      for (j = 0; j < attributes.length; j++) {
-        var attribute = attributes[j];
-        var name = attribute.name;
-        var value = attribute.value;
-        var hasSubstitution = false;
+      // special case for script tags:
+      // using innerHTML with a string that contains a script tag causes the script
+      // tag to not be executed when added to the DOM. We'll need to create a script
+      // tag and append it's contents which will make it execute correctly.
+      // @see http://stackoverflow.com/questions/1197575/can-scripts-be-inserted-with-innerhtml
+      if ((tag || node).nodeName === 'SCRIPT') {
+        var script = document.createElement('script');
+        node._replacedWith = script;
 
-        // attribute has substitution
-        if (name.indexOf(substitutionIndex) !== -1) {
-          hasSubstitution = true;
-          name = name.replace(substitutionRegex, replaceSubstitution);
+        (tag || node).parentNode.insertBefore(script, (tag || node));
 
-          // remove old tag
-          node.removeAttribute(attribute.name);
-        }
+        tag = script;
+      }
 
-        if (value.indexOf(substitutionIndex) !== -1) {
-          hasSubstitution = true;
-          value = value.replace(substitutionRegex, replaceSubstitution);
-        }
+      // node attributes
+      var attributes;
+      if (attributes = node.attributes) {
+        for (var i = 0; i < attributes.length; i++) {
+          var attribute = attributes[i];
+          var name = attribute.name;
+          var value = attribute.value;
+          var hasSubstitution = false;
 
-        // add the attribute to the new tag or replace it on the current node
-        // setAttribute() does not need to be escaped to prevent XSS since it does
-        // all of that for use
-        // @see https://www.mediawiki.org/wiki/DOM-based_XSS
-        if (tag || hasSubstitution) {
-          (tag || node).setAttribute(name, value);
+          // name has substitution
+          if (name.indexOf(substitutionIndex) !== -1) {
+            hasSubstitution = true;
+            name = name.replace(substitutionRegex, replaceSubstitution);
+
+            // remove old attribute
+            node.removeAttribute(attribute.name);
+          }
+
+          // value has substitution
+          if (value.indexOf(substitutionIndex) !== -1) {
+            hasSubstitution = true;
+            value = value.replace(substitutionRegex, replaceSubstitution);
+
+            // contextual auto escape
+            if (name === 'href') {
+              // URI encode then only allow the : when used after http or https
+              // (will not allow any 'javascript:' or filter evasion techniques)
+              value = encodeURI(value).replace(':', function(match, index, string) {
+                  var protocol = string.substring(index-5, index);
+                  if (protocol.indexOf('http') !== -1) {
+                    return match;
+                  }
+
+                  return '\\x' + match.charCodeAt(0).toString(16).toUpperCase();
+              });
+            }
+          }
+
+          // add the attribute to the new tag or replace it on the current node
+          // setAttribute() does not need to be escaped to prevent XSS since it does
+          // all of that for use
+          // @see https://www.mediawiki.org/wiki/DOM-based_XSS
+          if (tag || hasSubstitution) {
+            (tag || node).setAttribute(name, value);
+          }
         }
       }
 
-      // children
-      childNodes = node.childNodes;
-      for (j = 0; j < childNodes.length; j++) {
-        var childNode = childNodes[j];
+      // append the current node to a replaced parent
+      if (node.parentNode && node.parentNode._replacedWith) {
+        var parentNode = node.parentNode;
+        node.parentNode._replacedWith.appendChild(node);
 
-        // text node with substitution
-        if (childNode.nodeType === 3 &&
-            childNode.nodeValue.indexOf(substitutionIndex) !== -1) {
-          var nodeValue = childNode.nodeValue.replace(substitutionRegex, replaceSubstitution);
-
-          // createTextNode() should not need to be escaped to prevent XSS?
-          var text = document.createTextNode(nodeValue);
-
-          // if we have a new tag we'll append the text node to it instead of
-          // replacing it on the old node
-          if (!tag) {
-            node.replaceChild(text, childNode);
-          }
-          else {
-            childNode = text;
-          }
+        // remove the old node from the DOM
+        if (parentNode.childNodes.length === 0) {
+          parentNode.remove();
         }
+      }
 
-        if (tag) {
-          tag.appendChild(childNode);
-        }
+      // node value
+      if (node.nodeType === 3 && node.nodeValue.indexOf(substitutionIndex) !== -1) {
+        var nodeValue = node.nodeValue.replace(substitutionRegex, replaceSubstitution);
+
+        // createTextNode() should not need to be escaped to prevent XSS?
+        var text = document.createTextNode(nodeValue);
+
+        // since the parent node has already gone through the iterator, we can use
+        // replaceChild() here
+        node.parentNode.replaceChild(text, node);
       }
     }
 

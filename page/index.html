@@ -2,7 +2,7 @@
 <html>
 <head>
   <title></title>
-  <script src="index.js"></script>
+  <script src="../index.js"></script>
 </head>
 <body>
 <script>
@@ -19,7 +19,9 @@ var nodes = html`<tr><td><span>foo</span></td></tr><tr><td><span>bar</span></td>
 nodes.forEach(function(node) {
   document.body.appendChild(node);
 });
-
 </script>
+<!-- xss attack -->
+<script src="xss.js"></script>
+
 </body>
 </html>

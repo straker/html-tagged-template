@@ -1,0 +1,275 @@
+20160219 153843.705 [29935] Sauce Connect 4.3.11, build 1760 53519d5
+20160219 153843.706 [29935] Trying to autodetect proxy settings
+20160219 153843.711 [29935] Starting up; pid 29935
+20160219 153843.711 [29935] Command line arguments: /Users/jshcrowthe/Repos/html-tagged-template/node_modules/karma-sauce-launcher/node_modules/sauce-connect-launcher/sc/sc-4.3.11-osx/bin/sc -P 5757 --logfile sauce_connect.log -u jshcrowthe -k **** --tunnel-identifier karma1455921517 --readyfile /var/folders/dp/gpw0bgsx64zgjw5x9tnfpns80000gn/T/sc-launcher-readyfile
+20160219 153843.712 [29935] Using no proxy for connecting to Sauce Labs REST API.
+20160219 153844.147 [29935] Resolving saucelabs.com to 162.222.75.243 took 2564 ms.
+20160219 153844.369 [29935] ***********************************************************
+20160219 153844.369 [29935] A newer version of Sauce Connect (build 1879) is available!
+20160219 153844.369 [29935] Download it here:
+20160219 153844.369 [29935] https://saucelabs.com/downloads/sc-4.3.13-osx.zip
+20160219 153844.369 [29935] ***********************************************************
+20160219 153844.369 [29935] PROXY *** scproxy started ***
+20160219 153844.375 [29935] PROXY found DNS server 10.97.160.160
+20160219 153844.375 [29935] PROXY found DNS server 10.97.160.161
+20160219 153844.423 [29935] Started scproxy on port 63086.
+20160219 153844.423 [29935] Please wait for 'you may start your tests' to start your tests.
+20160219 153844.423 [29935] Starting secure remote tunnel VM...
+20160219 153849.261 [29935] Secure remote tunnel VM provisioned.
+20160219 153849.261 [29935] Tunnel ID: 7727ef32d89d415bb7652b1b05aa797b
+20160219 153849.425 [29935] Secure remote tunnel VM is now: booting
+20160219 153901.403 [29935] Secure remote tunnel VM is now: running
+20160219 153901.403 [29935] Remote tunnel host is: maki77146.miso.saucelabs.com
+20160219 153901.403 [29935] Using no proxy for connecting to tunnel VM.
+20160219 153901.430 [29935] Resolving tunnel hostname to 162.222.77.146 took 27ms.
+20160219 153901.430 [29935] Starting Selenium listener...
+20160219 153901.430 [29935] Establishing secure TLS connection to tunnel...
+20160219 153901.431 [29935] [EVDNS] Added nameserver 10.97.160.160:53 as 0x7ff981f24fd0
+20160219 153901.431 [29935] [EVDNS] Added nameserver 10.97.160.161:53 as 0x7ff981f25620
+20160219 153901.431 [29935] Selenium listener started on port 5757.
+20160219 153901.460 [29935] MAIN connecting to KGP server maki77146.miso.saucelabs.com took 29 ms
+20160219 153901.481 [29935] MAIN warning, failed to set KGP bufferevent priority to 0
+20160219 153902.617 [29935] Sauce Connect is up, you may start your tests.
+20160219 153905.613 [29935] PROXY 127.0.0.1:63179 -> GET http://crl.apple.com/timestamp.crl (250 bytes)
+20160219 153905.667 [29935] PROXY resolved 'crl.apple.com' to '17.151.28.6'
+20160219 153905.765 [29935] PROXY 127.0.0.1:63179 <- 200 crl.apple.com:80 (752 bytes)
+20160219 153905.875 [29935] PROXY 127.0.0.1:63179 -> GET http://crl.apple.com/root.crl (245 bytes)
+20160219 153905.917 [29935] PROXY 127.0.0.1:63179 <- 200 crl.apple.com:80 (709 bytes)
+20160219 153912.142 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.142 [29935] PROXY 127.0.0.1:63179 -> GET http://localhost:9876/?id=88448826 (476 bytes)
+20160219 153912.148 [29935] PROXY 127.0.0.1:63179 <- 200 localhost:9876 (2909 bytes)
+20160219 153912.208 [29935] PROXY 127.0.0.1:63179 -> GET http://localhost:9876/socket.io/socket.io.js (432 bytes)
+20160219 153912.213 [29935] PROXY 127.0.0.1:63179 <- 200 localhost:9876 (184829 bytes)
+20160219 153912.235 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.235 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/karma.js (418 bytes)
+20160219 153912.238 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (120537 bytes)
+20160219 153912.526 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxeC (452 bytes)
+20160219 153912.534 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (311 bytes)
+20160219 153912.554 [29935] PROXY 127.0.0.1:63179 -> GET http://localhost:9876/favicon.ico (421 bytes)
+20160219 153912.555 [29935] PROXY 127.0.0.1:63179 <- 200 localhost:9876 (5579 bytes)
+20160219 153912.595 [29935] PROXY 127.0.0.1:63179 -> GET https://c.msn.com/c.gif?udc=true&rid=f47acf4408b24b94d83417ab797d50cd&rnd=1455921547903&rf=&tp=https%3A%2F%2Fwww.msn.com%2Fspartan%2Fntp%3Flocale%3Den-US%26market%3DUS%26ocid%3Dspartanntp&scr=1024x768&di=340&lng=en-us&cv.product=spartan_NoContent&pn=ntp-onebox&activityId=8b400351676f4f7a81f0155207b56617&d.dgk=tmx.pc.edge.spartan.serviceui&d.imd=0 (890 bytes)
+20160219 153912.603 [29935] PROXY 127.0.0.1:63185 -> GET https://www.msn.com/spartan/en-us/kernel/appcache/cache.appcache (560 bytes)
+20160219 153912.603 [29935] PROXY resolved 'c.msn.com' to '131.253.14.192'
+20160219 153912.609 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.609 [29935] PROXY 127.0.0.1:63187 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxf0&sid=qlG6I20Z0V08SNsOAAAA (510 bytes)
+20160219 153912.609 [29935] PROXY resolved 'www.msn.com' to '204.79.197.203'
+20160219 153912.610 [29935] PROXY 127.0.0.1:63187 <- 200 localhost:9876 (213 bytes)
+20160219 153912.630 [29935] PROXY 127.0.0.1:63191 -> OPTIONS https://otf.msn.com/c.gif? (538 bytes)
+20160219 153912.665 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.665 [29935] PROXY 127.0.0.1:63193 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxg1&sid=qlG6I20Z0V08SNsOAAAA (763 bytes)
+20160219 153912.677 [29935] PROXY 127.0.0.1:63193 <- 200 localhost:9876 (255 bytes)
+20160219 153912.685 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.685 [29935] PROXY 127.0.0.1:63194 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxg3&sid=qlG6I20Z0V08SNsOAAAA (510 bytes)
+20160219 153912.687 [29935] PROXY 127.0.0.1:63194 <- 200 localhost:9876 (486 bytes)
+20160219 153912.707 [29935] PROXY resolved 'otf.msn.com' to '104.43.203.255'
+20160219 153912.719 [29935] PROXY 127.0.0.1:63185 <- 200 www.msn.com:443 (1515 bytes)
+20160219 153912.737 [29935] PROXY 127.0.0.1:63194 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxh5&sid=qlG6I20Z0V08SNsOAAAA (510 bytes)
+20160219 153912.768 [29935] PROXY resolved 'otf.msn.com' to '104.43.203.255'
+20160219 153912.768 [29935] PROXY 127.0.0.1:63193 -> GET https://otf.msn.com/c.gif?evt=impr&js=1&rid=f47acf4408b24b94d83417ab797d50cd&cts=1455921547937&clid=8b400351676f4f7a81f0155207b56617&rf=&cu=https%3A%2F%2Fwww.msn.com%2Fspartan%2Fntp%3Flocale%3Den-US%26market%3DUS%26ocid%3Dspartanntp&scr=1024x768&bh=419&bw=800&dv.Title1=&viewType=size2column&prs=%7B%22srch3P%22%3Afalse%7D&di=340&mkt=en-us&pn=ntp-onebox&su=https%253A%252F%252Fwww.msn.com%252Fspartan%252Fntp%253Flocale%253Den-US%2526market%253DUS%2526ocid%253Dspartanntp&pid=Spartan_NTP&mv=15&cv.product=spartan_NoContent&flightid=ushpcombo40%2Cal-enus-ar-ct%2Cmuidflt28cf%2Csp108-c%2Cmuidflt49cf%2Cal-bn-tb%2Car-comments%2Cmuidflt52cf%2Chp-lda-control&exa=ushpcombo40%2Cal-enus-ar-ct%2Cmuidflt28cf%2Csp108-c%2Cmuidflt49cf%2Cal-bn-tb%2Car-comments%2Cmuidflt52cf%2Chp-lda-control&activityId=8b400351676f4f7a81f0155207b56617&cvs=Browser&subcvs=homepage&st.dpt=ntp&st.sdpt=&cv.partner=&cv.publcat=&cv.author=&cv.entityId=&cv.entitySrc=&cv.parentId=&provid=&ar=0&d.dgk=tmx.pc.edge.spartan.serviceui&d.imd=0&tmpl=&isStaticPage=False&pgIdx=&pgTot=&pp=False (1595 bytes)
+20160219 153912.773 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.773 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/context.html (523 bytes)
+20160219 153912.775 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (3067 bytes)
+20160219 153912.790 [29935] PROXY 127.0.0.1:63179 <- 302 c.msn.com:443 (892 bytes)
+20160219 153912.821 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/base/node_modules/chai/chai.js?ab7cf506d9d77c111c878b1e10b7f25348630760 (479 bytes)
+20160219 153912.824 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (158771 bytes)
+20160219 153912.836 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.836 [29935] PROXY 127.0.0.1:63200 -> GET http://localhost:9876/base/node_modules/karma-chai/adapter.js?bab484a2111791847997ed88414622bccfbd2749 (488 bytes)
+20160219 153912.841 [29935] PROXY 127.0.0.1:63201 -> GET https://static-spartan-cus-s-msn-com.akamaized.net/_h/d6ea042c/webcore/externalscripts/jquery/jquery-2.1.1.min.js (613 bytes)
+20160219 153912.846 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.846 [29935] PROXY 127.0.0.1:63202 -> GET http://localhost:9876/base/node_modules/mocha/mocha.js?850a41c1571b8b60a69a80e154f26c7d2c55fbbd (481 bytes)
+20160219 153912.846 [29935] PROXY 127.0.0.1:63200 <- 200 localhost:9876 (358 bytes)
+20160219 153912.850 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.850 [29935] PROXY 127.0.0.1:63204 -> GET http://localhost:9876/base/node_modules/karma-mocha/lib/adapter.js?9112a0a88c794e8094a758094ffc9093543c3edd (493 bytes)
+20160219 153912.856 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153912.856 [29935] PROXY 127.0.0.1:63205 -> GET http://localhost:9876/base/index.js?29859011dfad1890418d10a7668ac6dce008b01e (462 bytes)
+20160219 153912.858 [29935] PROXY 127.0.0.1:63204 <- 200 localhost:9876 (5320 bytes)
+20160219 153912.858 [29935] PROXY 127.0.0.1:63205 <- 200 localhost:9876 (6325 bytes)
+20160219 153912.859 [29935] PROXY 127.0.0.1:63202 <- 200 localhost:9876 (322203 bytes)
+20160219 153912.870 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/base/test/htmlPaser.test.js?a03107404f4f88890a1476d47cdc72263ad53244 (476 bytes)
+20160219 153912.871 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (3252 bytes)
+20160219 153912.893 [29935] PROXY 127.0.0.1:63191 <- 200 otf.msn.com:443 (333 bytes)
+20160219 153912.909 [29935] PROXY resolved 'static-spartan-cus-s-msn-com.akamaized.net' to '23.216.11.59'
+20160219 153912.913 [29935] PROXY 127.0.0.1:63200 -> GET http://localhost:9876/base/test/substitution.test.js?fb8ecf9b155988c65964f17d86d38a7e9dd5bd80 (479 bytes)
+20160219 153912.913 [29935] PROXY 127.0.0.1:63204 -> GET http://localhost:9876/base/test/xss.test.js?92c6d5a6f2bc2ce68f11e0924f3bab62aab59be7 (470 bytes)
+20160219 153912.916 [29935] PROXY 127.0.0.1:63200 <- 200 localhost:9876 (2638 bytes)
+20160219 153912.916 [29935] PROXY 127.0.0.1:63204 <- 200 localhost:9876 (3138 bytes)
+20160219 153913.040 [29935] PROXY 127.0.0.1:63201 <- 200 static-spartan-cus-s-msn-com.akamaized.net:443 (30363 bytes)
+20160219 153913.070 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153913.070 [29935] PROXY 127.0.0.1:63212 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxl8&sid=qlG6I20Z0V08SNsOAAAA (623 bytes)
+20160219 153913.073 [29935] PROXY 127.0.0.1:63212 <- 200 localhost:9876 (255 bytes)
+20160219 153913.191 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153913.191 [29935] PROXY 127.0.0.1:63214 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxmg&sid=qlG6I20Z0V08SNsOAAAA (4966 bytes)
+20160219 153913.199 [29935] PROXY 127.0.0.1:63194 <- 200 localhost:9876 (216 bytes)
+20160219 153913.219 [29935] PROXY 127.0.0.1:63214 <- 200 localhost:9876 (255 bytes)
+20160219 153913.232 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153913.232 [29935] PROXY 127.0.0.1:63201 -> GET http://localhost:9876/javascript/x3A/*%3C/style%3E%3C/script%3E/**/%20/%3Cscript%3E1/(assert(false))//%3C/script%3E (602 bytes)
+20160219 153913.234 [29935] PROXY 127.0.0.1:63201 <- 404 localhost:9876 (134 bytes)
+20160219 153913.260 [29935] PROXY 127.0.0.1:63214 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxo3&sid=qlG6I20Z0V08SNsOAAAA (510 bytes)
+20160219 153913.261 [29935] PROXY 127.0.0.1:63214 <- 200 localhost:9876 (406 bytes)
+20160219 153913.325 [29935] PROXY 127.0.0.1:63220 -> POST http://ocsp.digicert.com/ (529 bytes)
+20160219 153913.330 [29935] PROXY resolved 'ocsp.digicert.com' to '72.21.91.29'
+20160219 153913.342 [29935] PROXY 127.0.0.1:63214 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhxp1&sid=qlG6I20Z0V08SNsOAAAA (510 bytes)
+20160219 153913.366 [29935] PROXY 127.0.0.1:63194 -> GET http://localhost:9876/javascript/x3A/*%3C/style%3E%3C/script%3E/**/%20/%3Cscript%3E1/(assert(false))//%3C/script%3E (602 bytes)
+20160219 153913.367 [29935] PROXY 127.0.0.1:63194 <- 404 localhost:9876 (134 bytes)
+20160219 153913.380 [29935] PROXY 127.0.0.1:63220 <- 200 ocsp.digicert.com:80 (812 bytes)
+20160219 153913.662 [29935] PROXY 127.0.0.1:63222 -> POST https://location.services.mozilla.com/v1/country?key=7e40f68c-7938-4c5d-9f95-e61647c213eb (576 bytes)
+20160219 153913.667 [29935] PROXY 127.0.0.1:63194 -> GET https://www.mozilla.org/media/js/site-bundle.6009f70fa7b1.js (494 bytes)
+20160219 153913.672 [29935] PROXY 127.0.0.1:63204 -> GET https://www.mozilla.org/media/js/common-bundle.e03b092546f6.js (496 bytes)
+20160219 153913.677 [29935] PROXY 127.0.0.1:63200 -> GET https://www.mozilla.org/media/js/firefox_firstrun_42_learnmore-bundle.866ea33b137a.js (519 bytes)
+20160219 153913.677 [29935] PROXY resolved 'location.services.mozilla.com' to '54.171.23.108'
+20160219 153913.677 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153913.681 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153913.681 [29935] PROXY 127.0.0.1:63185 -> GET https://www.mozilla.org/media/css/firefox_whatsnew_42_a-bundle.d9fceefd56f1.css (528 bytes)
+20160219 153913.686 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153913.686 [29935] PROXY 127.0.0.1:63205 -> GET https://www.mozilla.org/media/css/responsive-bundle.d4a37f75f560.css (517 bytes)
+20160219 153913.690 [29935] PROXY 127.0.0.1:63179 -> GET https://tiles.services.mozilla.com/v3/links/fetch/en-US/release (525 bytes)
+20160219 153913.690 [29935] PROXY resolved 'www.mozilla.org' to '104.16.40.2'
+20160219 153913.694 [29935] PROXY resolved 'tiles.services.mozilla.com' to '52.32.9.85'
+20160219 153913.795 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153913.876 [29935] PROXY 127.0.0.1:63200 <- 200 www.mozilla.org:443 (2562 bytes)
+20160219 153913.876 [29935] PROXY 127.0.0.1:63179 <- 303 tiles.services.mozilla.com:443 (266 bytes)
+20160219 153913.884 [29935] PROXY 127.0.0.1:63194 <- 200 www.mozilla.org:443 (1636 bytes)
+20160219 153913.893 [29935] PROXY 127.0.0.1:63205 <- 200 www.mozilla.org:443 (10548 bytes)
+20160219 153913.907 [29935] PROXY 127.0.0.1:63185 <- 200 www.mozilla.org:443 (3725 bytes)
+20160219 153913.965 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153913.965 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/?id=78161562 (433 bytes)
+20160219 153913.967 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (2909 bytes)
+20160219 153914.051 [29935] PROXY 127.0.0.1:63185 -> GET http://localhost:9876/socket.io/socket.io.js (475 bytes)
+20160219 153914.055 [29935] PROXY 127.0.0.1:63185 <- 200 localhost:9876 (184829 bytes)
+20160219 153914.084 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.084 [29935] PROXY 127.0.0.1:63205 -> GET http://localhost:9876/karma.js (461 bytes)
+20160219 153914.085 [29935] PROXY 127.0.0.1:63205 <- 200 localhost:9876 (120537 bytes)
+20160219 153914.098 [29935] PROXY 127.0.0.1:63194 -> GET https://tiles-cloudfront.cdn.mozilla.net/desktop/STAR/en-US.edf14b5c63daee79d6fd989a48b71b0adfb989b4.ag.json (576 bytes)
+20160219 153914.103 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153914.103 [29935] PROXY 127.0.0.1:63179 -> GET https://www.mozilla.org/media/img/firefox/favicon-196.223e1bcaf067.png (491 bytes)
+20160219 153914.103 [29935] PROXY 127.0.0.1:63200 -> GET https://www.mozilla.org/media/img/firefox/favicon.dc6635050bf5.ico (487 bytes)
+20160219 153914.103 [29935] PROXY resolved 'tiles-cloudfront.cdn.mozilla.net' to '54.230.116.172'
+20160219 153914.103 [29935] PROXY 127.0.0.1:63204 <- 200 www.mozilla.org:443 (40098 bytes)
+20160219 153914.190 [29935] PROXY 127.0.0.1:63205 -> GET https://www.googletagmanager.com/gtm.js?id=GTM-MW3R8V&l=dataLayer (506 bytes)
+20160219 153914.190 [29935] PROXY 127.0.0.1:63204 -> GET https://www.mozilla.org/media/img/firefox/whatsnew_42/fx-header-sprite.87fb4d007ec7.png (568 bytes)
+20160219 153914.195 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153914.196 [29935] PROXY 127.0.0.1:63185 -> GET https://www.mozilla.org/media/img/tabzilla/tabzilla-static.953a65a1f4a4.png (545 bytes)
+20160219 153914.200 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153914.200 [29935] PROXY 127.0.0.1:63234 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/shield.68b0a74c4a48.png (583 bytes)
+20160219 153914.200 [29935] PROXY resolved 'www.googletagmanager.com' to '172.217.0.72'
+20160219 153914.201 [29935] PROXY 127.0.0.1:63200 <- 200 www.mozilla.org:443 (8705 bytes)
+20160219 153914.210 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153914.210 [29935] PROXY 127.0.0.1:63238 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/critter-top-left.e4cd620eeb90.png (593 bytes)
+20160219 153914.227 [29935] PROXY 127.0.0.1:63200 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/eye-lid-top-right.8fb9f328fa1f.png (594 bytes)
+20160219 153914.231 [29935] PROXY 127.0.0.1:63194 <- 200 tiles-cloudfront.cdn.mozilla.net:443 (3224 bytes)
+20160219 153914.245 [29935] PROXY 127.0.0.1:63204 <- 200 www.mozilla.org:443 (8960 bytes)
+20160219 153914.260 [29935] PROXY 127.0.0.1:63222 <- 200 location.services.mozilla.com:443 (301 bytes)
+20160219 153914.274 [29935] PROXY 127.0.0.1:63200 <- 200 www.mozilla.org:443 (1977 bytes)
+20160219 153914.292 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.292 [29935] PROXY 127.0.0.1:63194 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhz85 (465 bytes)
+20160219 153914.295 [29935] PROXY 127.0.0.1:63194 <- 200 localhost:9876 (311 bytes)
+20160219 153914.315 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153914.315 [29935] PROXY 127.0.0.1:63222 -> GET https://www.mozilla.org/media/fonts/OpenSans-Regular-webfont.2696e36f12c5.woff (572 bytes)
+20160219 153914.339 [29935] PROXY 127.0.0.1:63200 -> GET https://www.mozilla.org/media/fonts/OpenSans-Light-webfont.1c8075cacedb.woff (570 bytes)
+20160219 153914.362 [29935] PROXY 127.0.0.1:63194 -> GET http://localhost:9876/socket.io/?EIO=3&transport=websocket&sid=khuuNVsPB-2OSmaPAAAB (503 bytes)
+20160219 153914.369 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.369 [29935] PROXY 127.0.0.1:63204 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhz9d&sid=khuuNVsPB-2OSmaPAAAB (523 bytes)
+20160219 153914.370 [29935] PROXY 127.0.0.1:63194 <- 400 localhost:9876 (286 bytes)
+20160219 153914.371 [29935] PROXY 127.0.0.1:63204 <- 200 localhost:9876 (213 bytes)
+20160219 153914.373 [29935] PROXY 127.0.0.1:63205 <- 200 www.googletagmanager.com:443 (48082 bytes)
+20160219 153914.392 [29935] PROXY 127.0.0.1:63243 -> GET https://search.services.mozilla.com/1/firefox/44.0/release/en-US/US/default/default (546 bytes)
+20160219 153914.392 [29935] PROXY 127.0.0.1:63179 <- 200 www.mozilla.org:443 (42856 bytes)
+20160219 153914.395 [29935] PROXY 127.0.0.1:63185 <- 200 www.mozilla.org:443 (5375 bytes)
+20160219 153914.416 [29935] PROXY 127.0.0.1:63238 <- 200 www.mozilla.org:443 (4996 bytes)
+20160219 153914.423 [29935] PROXY 127.0.0.1:63179 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/critter-arms.e7b8a3f378a2.png (589 bytes)
+20160219 153914.453 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.453 [29935] PROXY 127.0.0.1:63205 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzAj&sid=khuuNVsPB-2OSmaPAAAB (523 bytes)
+20160219 153914.453 [29935] PROXY 127.0.0.1:63185 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/critter-top-right.7b25dec98f03.png (594 bytes)
+20160219 153914.459 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.459 [29935] PROXY 127.0.0.1:63244 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzAh&sid=khuuNVsPB-2OSmaPAAAB (740 bytes)
+20160219 153914.460 [29935] PROXY 127.0.0.1:63214 <- 200 localhost:9876 (383 bytes)
+20160219 153914.460 [29935] PROXY 127.0.0.1:63205 <- 200 localhost:9876 (383 bytes)
+20160219 153914.461 [29935] PROXY 127.0.0.1:63244 <- 200 localhost:9876 (195 bytes)
+20160219 153914.467 [29935] PROXY resolved 'search.services.mozilla.com' to '52.10.203.178'
+20160219 153914.472 [29935] PROXY 127.0.0.1:63179 <- 200 www.mozilla.org:443 (2961 bytes)
+20160219 153914.473 [29935] PROXY 127.0.0.1:63234 <- 200 www.mozilla.org:443 (16321 bytes)
+20160219 153914.478 [29935] PROXY 127.0.0.1:63238 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/critter-bottom-right.76cac80a06c2.png (597 bytes)
+20160219 153914.502 [29935] PROXY 127.0.0.1:63234 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/eye-lid-bottom-right.070dfe3825e1.png (597 bytes)
+20160219 153914.502 [29935] PROXY 127.0.0.1:63179 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/cloud-top-left.89413abdfda5.png (591 bytes)
+20160219 153914.527 [29935] PROXY 127.0.0.1:63238 <- 200 www.mozilla.org:443 (6511 bytes)
+20160219 153914.530 [29935] PROXY 127.0.0.1:63244 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzC8&sid=khuuNVsPB-2OSmaPAAAB (523 bytes)
+20160219 153914.531 [29935] PROXY 127.0.0.1:63244 <- 200 localhost:9876 (471 bytes)
+20160219 153914.532 [29935] PROXY 127.0.0.1:63185 <- 200 www.mozilla.org:443 (6035 bytes)
+20160219 153914.541 [29935] PROXY 127.0.0.1:63200 <- 200 www.mozilla.org:443 (114822 bytes)
+20160219 153914.553 [29935] PROXY 127.0.0.1:63179 <- 200 www.mozilla.org:443 (8901 bytes)
+20160219 153914.559 [29935] PROXY 127.0.0.1:63234 <- 200 www.mozilla.org:443 (1359 bytes)
+20160219 153914.587 [29935] PROXY 127.0.0.1:63200 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/cloud-top-right.0b632496d966.png (592 bytes)
+20160219 153914.597 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.597 [29935] PROXY 127.0.0.1:63234 -> GET http://localhost:9876/context.html (480 bytes)
+20160219 153914.603 [29935] PROXY resolved 'www.mozilla.org' to '104.16.41.2'
+20160219 153914.603 [29935] PROXY 127.0.0.1:63244 -> GET https://www.mozilla.org/media/img/firefox/tracking-protection/sheild-animation/cloud-bottom-right.866fb0715fd3.png (595 bytes)
+20160219 153914.608 [29935] PROXY 127.0.0.1:63234 <- 200 localhost:9876 (3067 bytes)
+20160219 153914.613 [29935] PROXY 127.0.0.1:63205 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzD7&sid=khuuNVsPB-2OSmaPAAAB (523 bytes)
+20160219 153914.613 [29935] PROXY 127.0.0.1:63238 -> GET https://www.mozilla.org/media/img/sandstone/footer-mozilla-white.6de861f93df6.png (562 bytes)
+20160219 153914.634 [29935] PROXY 127.0.0.1:63200 <- 200 www.mozilla.org:443 (5538 bytes)
+20160219 153914.659 [29935] PROXY 127.0.0.1:63222 <- 200 www.mozilla.org:443 (112930 bytes)
+20160219 153914.663 [29935] PROXY 127.0.0.1:63243 <- 200 search.services.mozilla.com:443 (194 bytes)
+20160219 153914.667 [29935] PROXY 127.0.0.1:63238 <- 200 www.mozilla.org:443 (1297 bytes)
+20160219 153914.697 [29935] PROXY 127.0.0.1:63222 -> GET https://www.google-analytics.com/analytics.js (488 bytes)
+20160219 153914.743 [29935] PROXY resolved 'www.google-analytics.com' to '216.58.192.14'
+20160219 153914.793 [29935] PROXY 127.0.0.1:63244 <- 200 www.mozilla.org:443 (8457 bytes)
+20160219 153914.848 [29935] PROXY 127.0.0.1:63222 <- 200 www.google-analytics.com:443 (11369 bytes)
+20160219 153914.858 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.859 [29935] PROXY 127.0.0.1:63251 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzGe&sid=khuuNVsPB-2OSmaPAAAB (691 bytes)
+20160219 153914.860 [29935] PROXY 127.0.0.1:63251 <- 200 localhost:9876 (195 bytes)
+20160219 153914.952 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153914.953 [29935] PROXY 127.0.0.1:63253 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzIO&sid=khuuNVsPB-2OSmaPAAAB (4210 bytes)
+20160219 153914.957 [29935] PROXY 127.0.0.1:63205 <- 200 localhost:9876 (216 bytes)
+20160219 153914.965 [29935] PROXY 127.0.0.1:63253 <- 200 localhost:9876 (195 bytes)
+20160219 153914.975 [29935] PROXY resolved 'www.google-analytics.com' to '216.58.192.14'
+20160219 153914.975 [29935] PROXY 127.0.0.1:63251 -> GET https://www.google-analytics.com/plugins/ua/linkid.js (496 bytes)
+20160219 153915.024 [29935] PROXY 127.0.0.1:63253 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzJy&sid=khuuNVsPB-2OSmaPAAAB (523 bytes)
+20160219 153915.026 [29935] PROXY 127.0.0.1:63253 <- 200 localhost:9876 (383 bytes)
+20160219 153915.071 [29935] PROXY 127.0.0.1:63253 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhzKn&sid=khuuNVsPB-2OSmaPAAAB (523 bytes)
+20160219 153915.075 [29935] PROXY 127.0.0.1:63251 <- 200 www.google-analytics.com:443 (1311 bytes)
+20160219 153915.380 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153915.380 [29935] PROXY 127.0.0.1:63251 -> GET http://localhost:9876/favicon.ico (365 bytes)
+20160219 153915.381 [29935] PROXY 127.0.0.1:63251 <- 200 localhost:9876 (9055 bytes)
+20160219 153915.408 [29935] PROXY 127.0.0.1:63259 -> POST https://shavar.services.mozilla.com/downloads?client=navclient-auto-ffox&appver=44.0&pver=2.2 (641 bytes)
+20160219 153915.414 [29935] PROXY resolved 'shavar.services.mozilla.com' to '52.27.178.186'
+20160219 153915.600 [29935] PROXY 127.0.0.1:63259 <- 200 shavar.services.mozilla.com:443 (352 bytes)
+20160219 153915.635 [29935] PROXY 127.0.0.1:63251 -> GET http://localhost:9876/?id=13004451 (391 bytes)
+20160219 153915.636 [29935] PROXY 127.0.0.1:63251 <- 200 localhost:9876 (2909 bytes)
+20160219 153915.664 [29935] PROXY 127.0.0.1:63259 -> GET https://tracking-protection.cdn.mozilla.net/mozstd-track-digest256/1453241224 (533 bytes)
+20160219 153915.736 [29935] PROXY 127.0.0.1:63251 -> GET http://localhost:9876/socket.io/socket.io.js (388 bytes)
+20160219 153915.740 [29935] PROXY resolved 'tracking-protection.cdn.mozilla.net' to '54.230.116.202'
+20160219 153915.742 [29935] PROXY 127.0.0.1:63251 <- 200 localhost:9876 (184829 bytes)
+20160219 153915.766 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153915.766 [29935] PROXY 127.0.0.1:63244 -> GET http://localhost:9876/karma.js (374 bytes)
+20160219 153915.768 [29935] PROXY 127.0.0.1:63244 <- 200 localhost:9876 (120537 bytes)
+20160219 153915.788 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153915.788 [29935] PROXY 127.0.0.1:63243 -> GET http://localhost:9876/favicon.ico (392 bytes)
+20160219 153915.789 [29935] PROXY 127.0.0.1:63243 <- 200 localhost:9876 (9055 bytes)
+20160219 153915.902 [29935] PROXY 127.0.0.1:63259 <- 200 tracking-protection.cdn.mozilla.net:443 (55004 bytes)
+20160219 153915.953 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153915.953 [29935] PROXY 127.0.0.1:63259 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhyS9 (468 bytes)
+20160219 153915.954 [29935] PROXY 127.0.0.1:63259 <- 200 localhost:9876 (311 bytes)
+20160219 153915.989 [29935] PROXY resolved 'tracking-protection.cdn.mozilla.net' to '54.230.116.202'
+20160219 153915.989 [29935] PROXY 127.0.0.1:63259 -> GET https://tracking-protection.cdn.mozilla.net/mozstd-trackwhite-digest256/1450404423 (538 bytes)
+20160219 153916.010 [29935] PROXY 127.0.0.1:63243 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhyTH&sid=emD1tZzG9rkMb4gkAAAC (526 bytes)
+20160219 153916.011 [29935] PROXY 127.0.0.1:63243 <- 200 localhost:9876 (213 bytes)
+20160219 153916.065 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153916.065 [29935] PROXY 127.0.0.1:63267 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhyU4&sid=emD1tZzG9rkMb4gkAAAC (716 bytes)
+20160219 153916.069 [29935] PROXY 127.0.0.1:63253 <- 200 localhost:9876 (460 bytes)
+20160219 153916.070 [29935] PROXY 127.0.0.1:63267 <- 200 localhost:9876 (195 bytes)
+20160219 153916.075 [29935] PROXY 127.0.0.1:63251 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhyU5&sid=emD1tZzG9rkMb4gkAAAC (526 bytes)
+20160219 153916.077 [29935] PROXY 127.0.0.1:63251 <- 200 localhost:9876 (798 bytes)
+20160219 153916.131 [29935] PROXY 127.0.0.1:63251 -> GET http://localhost:9876/context.html (438 bytes)
+20160219 153916.133 [29935] PROXY 127.0.0.1:63251 <- 200 localhost:9876 (3067 bytes)
+20160219 153916.154 [29935] PROXY 127.0.0.1:63267 -> GET http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhyVB&sid=emD1tZzG9rkMb4gkAAAC (526 bytes)
+20160219 153916.240 [29935] PROXY 127.0.0.1:63259 <- 200 tracking-protection.cdn.mozilla.net:443 (308863 bytes)
+20160219 153916.490 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153916.491 [29935] PROXY 127.0.0.1:63269 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhyXs&sid=emD1tZzG9rkMb4gkAAAC (614 bytes)
+20160219 153916.492 [29935] PROXY 127.0.0.1:63269 <- 200 localhost:9876 (195 bytes)
+20160219 153916.808 [29935] PROXY resolved 'localhost' to '127.0.0.1'
+20160219 153916.808 [29935] PROXY 127.0.0.1:63271 -> POST http://localhost:9876/socket.io/?EIO=3&transport=polling&t=LBxhybZ&sid=emD1tZzG9rkMb4gkAAAC (4418 bytes)
+20160219 153916.813 [29935] PROXY 127.0.0.1:63267 <- 200 localhost:9876 (216 bytes)
+20160219 153916.822 [29935] Cleaning up.
+20160219 153916.827 [29935] PROXY 127.0.0.1:63271 <- 200 localhost:9876 (195 bytes)
+20160219 153917.035 [29935] Shutting down named tunnel karma1455921517 (7727ef32d89d415bb7652b1b05aa797b).
+20160219 153919.720 [29935] Goodbye.

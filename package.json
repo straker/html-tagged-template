@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox"
+    "test": "gulp test-ci"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "karma-ie-launcher": "^0.2.0",
     "karma-mocha": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
+    "karma-sauce-launcher": "^0.3.0",
     "mocha": "^2.4.5"
   }
 }

@@ -15,6 +15,12 @@ gulp.task('test', function(done) {
   }, done).start();
 });
 
+gulp.task('test-ci', function(done) {
+  new Server({
+    configFile: __dirname + '/karma.conf-ci.js',
+  }, done).start();
+});
+
 gulp.task('connect', function() {
   connect.server({
     livereload: true

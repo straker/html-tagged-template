@@ -5,6 +5,28 @@
 
 Improve the DOM creation API so developers have a cleaner, simpler interface to DOM creation and manipulation.
 
+## Installing
+
+`npm install html-tagged-template`
+
+or with Bower
+
+`bower install html-tagged-template`
+
+## Usage
+
+```js
+let min = 0, max = 99, disabled = true;
+
+let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
+document.body.appendChild(el);
+
+let els = html`<tr></tr><tr></tr>`
+els.forEach(function(el) {
+  document.body.appendChild(el);
+});
+```
+
 ## Problem Space
 
 The DOM creation API is a bit cumbersome to work with. To create a single element with several attributes requires several lines of code that repeat the same thing. The DOM selection API has received needed features that allow developers to do most DOM manipulation without needing a library. However, the DOM creation API still leaves something to be desired which sways developers from using it.
@@ -74,7 +96,7 @@ document.body.appendChild(div);
    <ul id="list">
      <li>Car</li>
    </ul>
- 
+
    <!-- after -->
    <ul id="list">
      <li>Car</li>
@@ -177,7 +199,7 @@ XSS attacks via string concatenation are among the most prevalent types of secur
 
 #### Proposed Solution
 
-There have been two proposed solutions for making template strings secure against XSS: [E4H](http://www.hixie.ch/specs/e4h/strawman), championed by Ian Hixie, and [contextual auto escaping](https://js-quasis-libraries-and-repl.googlecode.com/svn/trunk/safetemplate.html#security_under_maintenance), championed by Mike Samuel. 
+There have been two proposed solutions for making template strings secure against XSS: [E4H](http://www.hixie.ch/specs/e4h/strawman), championed by Ian Hixie, and [contextual auto escaping](https://js-quasis-libraries-and-repl.googlecode.com/svn/trunk/safetemplate.html#security_under_maintenance), championed by Mike Samuel.
 
 E4H uses an AST to construct the DOM, ensuring that substitutions are made safe against element and attribute injection. Contextual auto escaping tries to understand the context of the attribute or element in the DOM and correctly escape the substitution based on it's context.
 

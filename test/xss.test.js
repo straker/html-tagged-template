@@ -78,4 +78,12 @@ describe('XSS Attack Vectors', function() {
     document.body.appendChild(el);
     el.click();
   });
+  it('should prevent against clobbering of /attributes/', function() {
+    var el = html`<form id="f" action="javascript:assert(false)">
+			<input type="radio" name="attributes"//>
+			<input type="submit" />
+		</form>`;
+   document.body.appendChild(el);
+   el.submit();
+  });
 });

@@ -26,13 +26,13 @@ describe('Substitution expressions', function() {
   });
 
   it('should add attribute names or values from variables', function() {
-    var el = html`<input type="number" min="${min}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
+    var el = html`<input type="number" min="${min}" name="number" id="number" class="number-input" max="${max}" ${ (disabled ? 'disabled' : '') }/>`;
 
     // correct node
     expect(el.nodeName).to.equal('INPUT');
 
     // correct attributes
-    expect(el.attributes.length).to.equal(6);
+    expect(el.attributes.length).to.equal(7);
     expect(el.type).to.equal('number');
     expect(el.min).to.equal('0');
     expect(el.name).to.equal('number');

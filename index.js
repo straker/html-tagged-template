@@ -20,6 +20,7 @@ if (typeof window.html === 'undefined') {
 
   var substitutionIndex = 'substitutionindex:';  // tag names are always all lowercase
   var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+):', 'g');
+  var attributesToRemove = [];
 
   window.html = function(strings, ...values) {
     // break early if called with empty content
@@ -52,6 +53,7 @@ if (typeof window.html === 'undefined') {
     var node;
     while (node = walker.nextNode()) {
       var tag = null;
+      attributesToRemove.length = 0;
 
       // node name
       var nodeName = node.nodeName.toLowerCase();
@@ -96,7 +98,7 @@ if (typeof window.html === 'undefined') {
             name = name.replace(substitutionRegex, replaceSubstitution);
 
             // remove old attribute
-            node.removeAttribute(attribute.name);
+            attributesToRemove.push(attribute.name);
           }
 
           // value has substitution
@@ -128,6 +130,13 @@ if (typeof window.html === 'undefined') {
           }
         }
       }
+
+      // remove placeholder attributes outside of the attribute loop since it
+      // will modify the attributes NamedNodeMap indices.
+      // @see https://github.com/straker/html-tagged-template/issues/13
+      attributesToRemove.forEach(function(attribute) {
+        node.removeAttribute(attribute);
+      });
 
       // append the current node to a replaced parent
       var parentNode;

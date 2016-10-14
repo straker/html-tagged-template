@@ -1,6 +1,6 @@
 // @see https://developers.google.com/closure/templates/docs/security
 var xss = "javascript:/*</style></script>/**/ /<script>1/(alert(1337))//</script>";
-html`<a href="${xss}"
+document.body.appendChild(html`<a href="${xss}"
    onclick="${xss}"
    >${xss}</a>
   <script>var x = '${xss}'</script>
@@ -10,6 +10,4 @@ html`<a href="${xss}"
       background: url(/images?q=${xss});
       left: ${xss}
     }
-  </style>`.forEach(function(node) {
-  document.body.appendChild(node);
-});
+  </style>`);

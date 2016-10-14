@@ -1,5 +1,6 @@
 var counter = 0;
-describe('XSS Attack Vectors', function() {
+
+describe.only('XSS Attack Vectors', function() {
   // Modified XSS String
   // (Source: https://developers.google.com/closure/templates/docs/security#example)
   var xss = "javascript:/*</style></script>/**/ /<script>1/(assert(false))//</script>";
@@ -42,15 +43,13 @@ describe('XSS Attack Vectors', function() {
     var el = html`<a href='#' onclick="x='${xss}'">XSS &lt;p&gt; tag</a>`;
     document.body.appendChild(el);
     el.click();
-    expect(x).to.equal(xss);
   });
 
-  // test fails but we're not sure how best to handle this
-  // it('should prevent injection into quoted event handler', function() {
-  //   var el = html`<a href='#' onclick="${xss}">XSS &lt;p&gt; tag</a>`;
-  //   document.body.appendChild(el);
-  //   el.click();
-  // });
+  it('should prevent injection into quoted event handler', function() {
+    var el = html`<a href='#' onclick="${xss}">XSS &lt;p&gt; tag</a>`;
+    document.body.appendChild(el);
+    el.click();
+  });
 
   it('should prevent injection into CSS unquote property', function() {
     var el = html`<style>html { background: ${xss}; }</style>`;
@@ -78,4 +77,38 @@ describe('XSS Attack Vectors', function() {
     document.body.appendChild(el);
     el.click();
   });
+
+  it('should prevent against clobbering of /attributes/', function() {
+    var el = html`<form id="f" action="${xss}">
+      <input type="radio" name="attributes"//>
+      <input type="submit" />
+    </form>`;
+   document.body.appendChild(el);
+   el.submit();
+  });
+
+  it('should prevent injection out of a tag name by throwing an error', function() {
+    var func = function() {
+      var el = html`<h${xss}></h${xss}>`;
+      document.body.appendChild(el);
+    };
+
+    expect(func).to.throw;
+  });
+
+  it('should prevent xss urls by rejecting them', function() {
+    var el = html`<a href="${xss}"></a>`;
+    document.body.appendChild(el);
+    el.click();
+
+    expect(el.getAttribute('href')[0]).to.equal('#');
+  });
+
+  it('should prevent injection into uri custom attributes', function() {
+    var el = html`<a href="#" data-uri="${xss}">`
+    document.body.appendChild(el);
+    el.href = el.getAttribute('data-uri');
+    el.click();
+  });
+
 });

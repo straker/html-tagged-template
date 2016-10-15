@@ -19,59 +19,109 @@ catch (e) {
 
 if (typeof window.html === 'undefined') {
 
-  var substitutionIndex = 'substitutionindex:';  // tag names are always all lowercase
-  var substitutionRegex = new RegExp(substitutionIndex + '([0-9]+):', 'g');
+  // --------------------------------------------------
+  // constants
+  // --------------------------------------------------
 
-  // find all attributes after the first whitespace (which would follow the tag
-  // name. Only used when the DOM has been clobbered to still parse attributes
-  var fallbackAttributeParserRegex = /\s(\S+)/g
+  const SUBSTITUION_INDEX = 'substitutionindex:';  // tag names are always all lowercase
+  const SUBSTITUTION_REGEX = new RegExp(SUBSTITUION_INDEX + '([0-9]+):', 'g');
 
   // rejection string is used to replace xss attacks that cannot be escaped either
   // because the escaped string is still executable
   // (e.g. setTimeout(/* escaped string */)) or because it produces invalid results
   // (e.g. <h${xss}> where xss='><script>alert(1337)</script')
   // @see https://developers.google.com/closure/templates/docs/security#in_tags_and_attrs
-  var rejectionString = 'zSubstitutionRejectedz';
-
-  // test if a javascript substitution is wrapped with quotes
-  var wrappedWithQuotesRegex = /^('|")[\s\S]*\1$/;
+  const REJECTION_STRING = 'zXssPreventedz';
 
   // which characters should be encoded in which contexts
-  var encodings = {
+  const ENCODINGS = {
     attribute: {
       '&': '&amp;',
       '<': '&lt;',
       '>': '&gt;'
+    },
+    uri: {
+      '&': '&amp;'
     }
-  };
-
-  var encodingRegexs = {
-    attribute: new RegExp('[' + Object.keys(encodings.attribute).join('') + ']', 'g')
   };
 
   // which attributes are DOM Level 0 events
   // taken from https://en.wikipedia.org/wiki/DOM_events#DOM_Level_0
-  var domEvents = ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "ondragstart", "ondrag", "ondragenter", "ondragleave", "ondragover", "ondrop", "ondragend", "onkeydown", "onkeypress", "onkeyup", "onload", "onunload", "onabort", "onerror", "onresize", "onscroll", "onselect", "onchange", "onsubmit", "onreset", "onfocus", "onblur", "onpointerdown", "onpointerup", "onpointercancel", "onpointermove", "onpointerover", "onpointerout", "onpointerenter", "onpointerleave", "ongotpointercapture", "onlostpointercapture", "oncut", "oncopy", "onpaste", "onbeforecut", "onbeforecopy", "onbeforepaste", "onafterupdate", "onbeforeupdate", "oncellchange", "ondataavailable", "ondatasetchanged", "ondatasetcomplete", "onerrorupdate", "onrowenter", "onrowexit", "onrowsdelete", "onrowinserted", "oncontextmenu", "ondrag", "ondragstart", "ondragenter", "ondragover", "ondragleave", "ondragend", "ondrop", "onselectstart", "help", "onbeforeunload", "onstop", "beforeeditfocus", "onstart", "onfinish", "onbounce", "onbeforeprint", "onafterprint", "onpropertychange", "onfilterchange", "onreadystatechange", "onlosecapture", "DOMMouseScroll", "ondragdrop", "ondragenter", "ondragexit", "ondraggesture", "ondragover", "onclose", "oncommand", "oninput", "DOMMenuItemActive", "DOMMenuItemInactive", "oncontextmenu", "onoverflow", "onoverflowchanged", "onunderflow", "onpopuphidden", "onpopuphiding", "onpopupshowing", "onpopupshown", "onbroadcast", "oncommandupdate"];
+  const DOM_EVENTS = ["onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "ondragstart", "ondrag", "ondragenter", "ondragleave", "ondragover", "ondrop", "ondragend", "onkeydown", "onkeypress", "onkeyup", "onload", "onunload", "onabort", "onerror", "onresize", "onscroll", "onselect", "onchange", "onsubmit", "onreset", "onfocus", "onblur", "onpointerdown", "onpointerup", "onpointercancel", "onpointermove", "onpointerover", "onpointerout", "onpointerenter", "onpointerleave", "ongotpointercapture", "onlostpointercapture", "oncut", "oncopy", "onpaste", "onbeforecut", "onbeforecopy", "onbeforepaste", "onafterupdate", "onbeforeupdate", "oncellchange", "ondataavailable", "ondatasetchanged", "ondatasetcomplete", "onerrorupdate", "onrowenter", "onrowexit", "onrowsdelete", "onrowinserted", "oncontextmenu", "ondrag", "ondragstart", "ondragenter", "ondragover", "ondragleave", "ondragend", "ondrop", "onselectstart", "help", "onbeforeunload", "onstop", "beforeeditfocus", "onstart", "onfinish", "onbounce", "onbeforeprint", "onafterprint", "onpropertychange", "onfilterchange", "onreadystatechange", "onlosecapture", "DOMMouseScroll", "ondragdrop", "ondragenter", "ondragexit", "ondraggesture", "ondragover", "onclose", "oncommand", "oninput", "DOMMenuItemActive", "DOMMenuItemInactive", "oncontextmenu", "onoverflow", "onoverflowchanged", "onunderflow", "onpopuphidden", "onpopuphiding", "onpopupshowing", "onpopupshown", "onbroadcast", "oncommandupdate"];
 
   // which attributes take URIs
   // taken from https://www.w3.org/TR/html4/index/attributes.html
-  var uriAttributes = ["action", "background", "cite", "classid", "codebase", "data", "href", "longdesc", "profile", "src", "usemap"];
+  const URI_ATTRIBUTES = ["action", "background", "cite", "classid", "codebase", "data", "href", "longdesc", "profile", "src", "usemap"];
+
+  const ENCODINGS_REGEX = {
+    attribute: new RegExp('[' + Object.keys(ENCODINGS.attribute).join('') + ']', 'g'),
+    uri: new RegExp('[' + Object.keys(ENCODINGS.uri).join('') + ']', 'g')
+  };
+
+  // find all attributes after the first whitespace (which would follow the tag
+  // name. Only used when the DOM has been clobbered to still parse attributes
+  const ATTRIBUTE_PARSER_REGEX = /\s(\S+)/g
+
+  // test if a javascript substitution is wrapped with quotes
+  const WRAPPED_WITH_QUOTES_REGEX = /^('|")[\s\S]*\1$/;
 
   // allow custom attribute names that start or end with url or ui to do uri escaping
-  var customUriAttribute = /\bur[il]|ur[il]s?$/i;
+  // @see https://developers.google.com/closure/templates/docs/security#in_urls
+  const CUSTOM_URI_ATTRIBUTES_REGEX = /\bur[il]|ur[il]s?$/i;
+
+
+
+
+
+  // --------------------------------------------------
+  // private functions
+  // --------------------------------------------------
 
   /**
    * Escape HTML entities in an attribute.
+   * @private
+   *
    * @param {string} str - String to escape.
    *
    * @returns {string}
    */
   function encodeAttributeHTMLEntities(str) {
-    return str.replace(encodingRegexs.attribute, function(match) {
-      return encodings.attribute[match];
+    return str.replace(ENCODINGS_REGEX.attribute, function(match) {
+      return ENCODINGS.attribute[match];
     });
   }
 
+  /**
+   * Escape entities in a URI.
+   * @private
+   *
+   * @param {string} str - URI to escape.
+   *
+   * @returns {string}
+   */
+  function encodeURIEntities(str) {
+    return str.replace(ENCODINGS_REGEX.uri, function(match) {
+      return ENCODINGS.uri[match];
+    });
+  }
+
+
+
+
+
+  // --------------------------------------------------
+  // html tagged template function
+  // --------------------------------------------------
+
+  /**
+   * Safely convert a DOM string into DOM nodes using by using E4H and contextual
+   * auto-escaping techniques to prevent xss attacks.
+   *
+   * @param {string[]} strings - Safe string literals.
+   * @param {*} values - Unsafe substitution expressions.
+   *
+   * @returns {HTMLElement|DocumentFragment}
+   */
   window.html = function(strings, ...values) {
     // break early if called with empty content
     if (!strings[0] && values.length === 0) {
@@ -79,7 +129,11 @@ if (typeof window.html === 'undefined') {
     }
 
     /**
-     * Replace a string with substitutions with their substitution value
+     * Replace a string with substitution placeholders with its substitution values.
+     * @private
+     *
+     * @param {string} match - Matched substitution placeholder.
+     * @param {string} index - Substitution placeholder index.
      */
     function replaceSubstitution(match, index) {
       return values[parseInt(index, 10)];
@@ -88,26 +142,34 @@ if (typeof window.html === 'undefined') {
     // insert placeholders into the generated string so we can run it through the
     // HTML parser without any malicious content.
     // (this particular placeholder will even work when used to create a DOM element)
-    var str = strings[0];
-    for (i = 0; i < values.length; i++) {
-      str += substitutionIndex + i + ':' + strings[i+1];
+    let str = strings[0];
+    for (let i = 0; i < values.length; i++) {
+      str += SUBSTITUION_INDEX + i + ':' + strings[i+1];
     }
 
     // template tags allow any HTML (even <tr> elements out of context)
     // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
-    var template = document.createElement('template');
+    let template = document.createElement('template');
     template.innerHTML = str;
 
-    // find all substitution values and safely encode them using DOM APIs
-    var walker = document.createNodeIterator(template.content, NodeFilter.SHOW_ALL);
-    var node;
+    // find all substitution values and safely encode them using DOM APIs and
+    // contextual auto-escaping
+    let walker = document.createNodeIterator(template.content, NodeFilter.SHOW_ALL);
+    let node;
     while (node = walker.nextNode()) {
-      var tag = null;
+      let tag = null;
 
-      // node name
-      var nodeName = node.nodeName.toLowerCase();
-      if (nodeName.indexOf(substitutionIndex) !== -1) {
-        nodeName = nodeName.replace(substitutionRegex, replaceSubstitution);
+
+
+
+
+      // --------------------------------------------------
+      // node name substitution
+      // --------------------------------------------------
+
+      let nodeName = node.nodeName.toLowerCase();
+      if (nodeName.indexOf(SUBSTITUION_INDEX) !== -1) {
+        nodeName = nodeName.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
         // createElement() should not need to be escaped to prevent XSS?
 
@@ -115,6 +177,9 @@ if (typeof window.html === 'undefined') {
         // to escape out of the tag using '><script>alert(1337)</script><')
         // instead of replacing the tag name we'll just let the error be thrown
         tag = document.createElement(nodeName);
+
+        // mark that this node needs to be cleaned up later with the newly
+        // created node
         node._replacedWith = tag;
 
         // use insertBefore() instead of replaceChild() so that the node Iterator
@@ -127,17 +192,23 @@ if (typeof window.html === 'undefined') {
       // tag to not be executed when added to the DOM. We'll need to create a script
       // tag and append it's contents which will make it execute correctly.
       // @see http://stackoverflow.com/questions/1197575/can-scripts-be-inserted-with-innerhtml
-      else if ((tag || node).nodeName === 'SCRIPT') {
-        var script = document.createElement('script');
-        node._replacedWith = script;
-
-        (tag || node).parentNode.insertBefore(script, (tag || node));
-
+      else if (node.nodeName === 'SCRIPT') {
+        let script = document.createElement('script');
         tag = script;
+
+        node._replacedWith = script;
+        node.parentNode.insertBefore(script, node);
       }
 
-      // node attributes
-      var attributes;
+
+
+
+
+      // --------------------------------------------------
+      // attribute substitution
+      // --------------------------------------------------
+
+      let attributes;
       if (node.attributes) {
 
         // if the attributes property is not of type NamedNodeMap then the DOM
@@ -145,17 +216,18 @@ if (typeof window.html === 'undefined') {
         // We'll manually build up an array of objects that mimic the Attr
         // object so the loop will still work as expected.
         if ( !(node.attributes instanceof NamedNodeMap) ) {
+
           // first clone the node so we can isolate it from any children
-          var temp = node.cloneNode();
+          let temp = node.cloneNode();
 
           // parse the node string for all attributes
-          var attributeMatches = temp.outerHTML.match(fallbackAttributeParserRegex);
+          let attributeMatches = temp.outerHTML.match(ATTRIBUTE_PARSER_REGEX);
 
           // get all attribute names and their value
           attributes = [];
-          for (var i = 0; i < attributeMatches.length; i++) {
-            var attributeName = attributeMatches[i].trim().split('=')[0];
-            var attributeValue = node.getAttribute(attributeName);
+          for (let i = 0; i < attributeMatches.length; i++) {
+            let attributeName = attributeMatches[i].trim().split('=')[0];
+            let attributeValue = node.getAttribute(attributeName);
 
             attributes.push({
               name: attributeName,
@@ -164,66 +236,89 @@ if (typeof window.html === 'undefined') {
           }
         }
         else {
-          // Windows 10 Firefox 44 will shift the attributes NamedNodeMap and push
-          // the attribute to the end when using setAttribute(). We'll have to clone
-          // the NamedNodeMap so the order isn't changed for setAttribute()
+          // Windows 10 and Firefox 44 will shift the attributes NamedNodeMap and
+          // push the attribute to the end when using setAttribute(). We'll have
+          // to clone the NamedNodeMap so the order isn't changed for setAttribute()
           attributes = Array.from(node.attributes);
         }
 
-        for (var i = 0; i < attributes.length; i++) {
-          var attribute = attributes[i];
-          var name = attribute.name;
-          var value = attribute.value;
-          var hasSubstitution = false;
+        for (let i = 0; i < attributes.length; i++) {
+          let attribute = attributes[i];
+          let name = attribute.name;
+          let value = attribute.value;
+          let hasSubstitution = false;
 
           // name has substitution
-          if (name.indexOf(substitutionIndex) !== -1) {
+          if (name.indexOf(SUBSTITUION_INDEX) !== -1) {
             hasSubstitution = true;
-            name = name.replace(substitutionRegex, replaceSubstitution);
+
+            name = name.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
             // remove old attribute
             node.removeAttribute(attribute.name);
           }
 
           // value has substitution
-          if (value.indexOf(substitutionIndex) !== -1) {
+          if (value.indexOf(SUBSTITUION_INDEX) !== -1) {
             hasSubstitution = true;
-            value = value.replace(substitutionRegex, function(match, index) {
-              var substitutionValue = values[parseInt(index, 10)];
+
+            // if an uri attribute has been rejected
+            let isRejected = false;
+
+            value = value.replace(SUBSTITUTION_REGEX, function(match, index, offset) {
+              if (isRejected) return '';
+
+              let substitutionValue = values[parseInt(index, 10)];
 
               // contextual auto-escaping:
               // if attribute is a DOM Level 0 event then we need to ensure it
               // is quoted
-              if (domEvents.indexOf(name) !== -1 &&
+              if (DOM_EVENTS.indexOf(name) !== -1 &&
                   typeof substitutionValue === 'string' &&
-                  !wrappedWithQuotesRegex.test(substitutionValue) ) {
+                  !WRAPPED_WITH_QUOTES_REGEX.test(substitutionValue) ) {
                 substitutionValue = '"' + substitutionValue + '"';
+              }
+
+              // contextual auto-escaping:
+              // if the attribute is a uri attribute then we need to uri encode it and
+              // remove bad protocols
+              else if (URI_ATTRIBUTES.indexOf(name) !== -1 ||
+                  CUSTOM_URI_ATTRIBUTES_REGEX.test(name)) {
+
+                // percent encode if the value is inside of a query parameter
+                let queryParamIndex = value.indexOf('=');
+                if (queryParamIndex !== -1 && offset > queryParamIndex) {
+                  substitutionValue = encodeURIComponent(substitutionValue);
+                }
+
+                // entity encode if value is part of the URL
+                else {
+                  substitutionValue = encodeURI( encodeURIEntities(substitutionValue) );
+
+                  // only allow the : when used after http or https otherwise reject
+                  // the entire url (will not allow any 'javascript:' or filter
+                  // evasion techniques)
+                  if (offset === 0 && substitutionValue.indexOf(':') !== -1) {
+                    let protocol = substitutionValue.substring(index-5, index);
+                    if (protocol.indexOf('http') === -1) {
+                      isRejected = true;
+                    }
+                  }
+                }
+              }
+
+              // contextual auto-escaping:
+              // HTML encode attribute value if it is not a URL or URI to prevent
+              // DOM Level 0 event handlers from executing xss code
+              else if (typeof substitutionValue === 'string') {
+                substitutionValue = encodeAttributeHTMLEntities(substitutionValue);
               }
 
               return substitutionValue;
             });
 
-            // contextual auto-escaping:
-            if (uriAttributes.indexOf(name) !== -1 || customUriAttribute.test(name)) {
-              value = encodeURI(value);
-
-              // only allow the : when used after http or https otherwise reject
-              // the entire url (will not allow any 'javascript:' or filter
-              // evasion techniques)
-              var index = value.indexOf(':');
-              if (index !== -1) {
-                var protocol = value.substring(index-5, index);
-                if (protocol.indexOf('http') === -1) {
-                  value = '#' + rejectionString;
-                }
-              }
-            }
-
-            // contextual auto-escaping:
-            // HTML encode attribute value if it is not a URL or URI to prevent
-            // DOM Level 0 event handlers from executing xss code
-            else if (typeof value === 'string') {
-              value = encodeAttributeHTMLEntities(value);
+            if (isRejected) {
+              value = '#' + REJECTION_STRING;
             }
           }
 
@@ -238,7 +333,7 @@ if (typeof window.html === 'undefined') {
       }
 
       // append the current node to a replaced parent
-      var parentNode;
+      let parentNode;
       if (node.parentNode && node.parentNode._replacedWith) {
         parentNode = node.parentNode;
         node.parentNode._replacedWith.appendChild(node);
@@ -250,12 +345,19 @@ if (typeof window.html === 'undefined') {
         (parentNode || node).remove();
       }
 
-      // node value
-      if (node.nodeType === 3 && node.nodeValue.indexOf(substitutionIndex) !== -1) {
-        var nodeValue = node.nodeValue.replace(substitutionRegex, replaceSubstitution);
+
+
+
+
+      // --------------------------------------------------
+      // text content substitution
+      // --------------------------------------------------
+
+      if (node.nodeType === 3 && node.nodeValue.indexOf(SUBSTITUION_INDEX) !== -1) {
+        let nodeValue = node.nodeValue.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
         // createTextNode() should not need to be escaped to prevent XSS?
-        var text = document.createTextNode(nodeValue);
+        let text = document.createTextNode(nodeValue);
 
         // since the parent node has already gone through the iterator, we can use
         // replaceChild() here

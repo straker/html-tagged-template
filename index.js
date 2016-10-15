@@ -158,6 +158,7 @@ if (typeof window.html === 'undefined') {
     let node;
     while (node = walker.nextNode()) {
       let tag = null;
+      let attributesToRemove = [];
 
 
 
@@ -236,7 +237,7 @@ if (typeof window.html === 'undefined') {
           }
         }
         else {
-          // Windows 10 and Firefox 44 will shift the attributes NamedNodeMap and
+          // Windows 10 Firefox 44 will shift the attributes NamedNodeMap and
           // push the attribute to the end when using setAttribute(). We'll have
           // to clone the NamedNodeMap so the order isn't changed for setAttribute()
           attributes = Array.from(node.attributes);
@@ -255,7 +256,7 @@ if (typeof window.html === 'undefined') {
             name = name.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
             // remove old attribute
-            node.removeAttribute(attribute.name);
+            attributesToRemove.push(attribute.name);
           }
 
           // value has substitution
@@ -331,6 +332,13 @@ if (typeof window.html === 'undefined') {
           }
         }
       }
+
+      // remove placeholder attributes outside of the attribute loop since it
+      // will modify the attributes NamedNodeMap indices.
+      // @see https://github.com/straker/html-tagged-template/issues/13
+      attributesToRemove.forEach(function(attribute) {
+        node.removeAttribute(attribute);
+      });
 
       // append the current node to a replaced parent
       let parentNode;

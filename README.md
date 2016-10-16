@@ -31,7 +31,7 @@ document.body.appendChild(el);
 
 The only way this proposal will continue forward is with help from the community. If you would like to see the `html` function in the web, please upvote the [proposal on the W3C DOM repo](https://github.com/whatwg/dom/issues/150).
 
-If you find a bug or an XSS case that should to be handled, please submit an issue, or even better a PR with the relevant code to reproduce the error in the (xss test)[test/xss.test.js].
+If you find a bug or an XSS case that should to be handled, please submit an issue, or even better a PR with the relevant code to reproduce the error in the [xss test](test/xss.test.js).
 
 ## Problem Space
 

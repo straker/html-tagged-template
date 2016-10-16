@@ -18,21 +18,21 @@ module.exports = function (config) {
       platform: 'OS X 10.11',
       browserName: 'chrome',
     },
-    // OSX_Firefox: {
-    //   base: 'SauceLabs',
-    //   platform: 'OS X 10.11',
-    //   browserName: 'firefox'
-    // },
-    // Windows_Chrome: {
-    //   base: 'SauceLabs',
-    //   platform: 'Windows 10',
-    //   browserName: 'chrome',
-    // },
-    // Windows_Firefox: {
-    //   base: 'SauceLabs',
-    //   platform: 'Windows 10',
-    //   browserName: 'firefox'
-    // },
+    OSX_Firefox: {
+      base: 'SauceLabs',
+      platform: 'OS X 10.11',
+      browserName: 'firefox'
+    },
+    Windows_Chrome: {
+      base: 'SauceLabs',
+      platform: 'Windows 10',
+      browserName: 'chrome',
+    },
+    Windows_Edge: {
+      base: 'SauceLabs',
+      platform: 'Windows 10',
+      browserName: 'MicrosoftEdge'
+    }
   }
 
   config.set({

@@ -18,14 +18,20 @@ or with Bower
 ```js
 let min = 0, max = 99, disabled = true;
 
+// returns an <input> tag with all attributes set
 let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
 document.body.appendChild(el);
 
-let els = html`<tr></tr><tr></tr>`
-els.forEach(function(el) {
-  document.body.appendChild(el);
-});
+// returns a DocumentFragment with two <tr> elements as children
+let el = html`<tr></tr><tr></tr>`
+document.body.appendChild(el);
 ```
+
+## Contributing
+
+The only way this proposal will continue forward is with help from the community. If you would like to see the `html` function in the web, please upvote the [proposal on the W3C DOM repo](https://github.com/whatwg/dom/issues/150).
+
+If you find a bug or an XSS case that should to be handled, please submit an issue, or even better a PR with the relevant code to reproduce the error in the (xss test)[test/xss.test.js].
 
 ## Problem Space
 

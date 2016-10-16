@@ -60,7 +60,7 @@ if (typeof window.html === 'undefined') {
 
   // find all attributes after the first whitespace (which would follow the tag
   // name. Only used when the DOM has been clobbered to still parse attributes
-  const ATTRIBUTE_PARSER_REGEX = /\s(\S+)/g
+  const ATTRIBUTE_PARSER_REGEX = /\s(\S+)/g;
 
   // test if a javascript substitution is wrapped with quotes
   const WRAPPED_WITH_QUOTES_REGEX = /^('|")[\s\S]*\1$/;
@@ -267,7 +267,9 @@ if (typeof window.html === 'undefined') {
             let isRejected = false;
 
             value = value.replace(SUBSTITUTION_REGEX, function(match, index, offset) {
-              if (isRejected) return '';
+              if (isRejected) {
+                return '';
+              }
 
               let substitutionValue = values[parseInt(index, 10)];
 

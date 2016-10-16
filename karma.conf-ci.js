@@ -42,7 +42,17 @@ module.exports = function (config) {
       'index.js',
       'test/*.js'
     ],
-    reporters: ['progress', 'saucelabs'],
+    reporters: ['progress', 'saucelabs', 'coverage'],
+    preprocessors: {
+      'index.js': ['coverage']
+    },
+    coverageReporter: {
+      dir : 'coverage/',
+      reporters: [
+        {type: 'lcov', subdir: '.'},
+        {type: 'text-summary'}
+      ]
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,

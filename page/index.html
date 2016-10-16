@@ -15,11 +15,9 @@ document.body.appendChild(html`<input type="number" min="${min}" max="${max}" na
 document.body.appendChild(html`<div class="container"><div class="row"><div class="col"><h${heading}><span>Hi</span></h${heading}></div></div></div>`);
 
 // sibling nodes
-var nodes = html`<tr><td><span>foo</span></td></tr><tr><td><span>bar</span></td></tr>`;
-nodes.forEach(function(node) {
-  document.body.appendChild(node);
-});
+document.body.appendChild(html`<tr><td><span>foo</span></td></tr><tr><td><span>bar</span></td></tr>`);
 </script>
+
 <!-- xss attack -->
 <script src="xss.js"></script>
 

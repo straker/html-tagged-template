@@ -107,11 +107,11 @@ describe('HTML parser', function() {
     var nodes = html`<tr></tr><tr></tr>`;
 
     // correct node
-    expect(nodes).to.be.instanceof(Array);
-    expect(nodes.length).to.equal(2);
+    expect(nodes).to.be.instanceof(DocumentFragment);
+    expect(nodes.childNodes.length).to.equal(2);
 
     // correct first child
-    var tr = nodes[0];
+    var tr = nodes.querySelectorAll('tr')[0];
     expect(tr.nodeName).to.equal('TR');
     expect(tr.attributes.length, 'more than 1 attribute').to.equal(0);
     expect(tr.children.length, 'more than 1 child').to.equal(0);
@@ -119,7 +119,7 @@ describe('HTML parser', function() {
     expect(tr.textContent).to.be.empty;
 
     // correct second child
-    var tr2 = nodes[0];
+    var tr2 = nodes.querySelectorAll('tr')[1];
     expect(tr2.nodeName).to.equal('TR');
     expect(tr2.attributes.length, 'more than 1 attribute').to.equal(0);
     expect(tr2.children.length, 'more than 1 child').to.equal(0);

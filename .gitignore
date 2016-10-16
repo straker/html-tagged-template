@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 coverage
 sauce_connect.log
+.env

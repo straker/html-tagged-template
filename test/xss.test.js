@@ -79,12 +79,15 @@ describe('XSS Attack Vectors', function() {
   });
 
   it('should prevent against clobbering of /attributes/', function() {
-    var el = html`<form id="f" action="${xss}">
+    var el = html`<form id="f" action="${xss}" onsubmit="return false;">
       <input type="radio" name="attributes"//>
       <input type="submit" />
     </form>`;
    document.body.appendChild(el);
-   el.submit();
+
+   // el.submit() does not trigger a submit event, so we need to click the submit button
+   // @see http://stackoverflow.com/questions/11557994/jquery-submit-vs-javascript-submit
+   el.querySelector('input[type="submit"]').click();
   });
 
   it('should prevent injection out of a tag name by throwing an error', function() {

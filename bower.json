@@ -18,7 +18,10 @@
     "type": "git",
     "url": "https://github.com/straker/html-tagged-template.git"
   },
-  "main": "index.js",
+  "main": [
+    "index.js",
+    "index.html"
+  ],
   "moduleType": "globals",
   "license": "MIT",
   "ignore": [

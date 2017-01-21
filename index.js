@@ -251,16 +251,20 @@ if (typeof window.html === 'undefined') {
 
           // name has substitution
           if (name.indexOf(SUBSTITUION_INDEX) !== -1) {
-            hasSubstitution = true;
-
             name = name.replace(SUBSTITUTION_REGEX, replaceSubstitution);
+
+            // ensure substitution was with a non-empty string
+            if (name && typeof name === 'string') {
+              hasSubstitution = true;
+            }
 
             // remove old attribute
             attributesToRemove.push(attribute.name);
           }
 
-          // value has substitution
-          if (value.indexOf(SUBSTITUION_INDEX) !== -1) {
+          // value has substitution - only check if name exists (only happens
+          // when name is a substitution with an empty value)
+          if (name && value.indexOf(SUBSTITUION_INDEX) !== -1) {
             hasSubstitution = true;
 
             // if an uri attribute has been rejected

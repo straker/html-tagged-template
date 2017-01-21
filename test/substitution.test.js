@@ -46,6 +46,44 @@ describe('Substitution expressions', function() {
     expect(el.textContent).to.be.empty;
   });
 
+  it('should skip empty attributes', function() {
+    var emptyDisabled = false;
+    var el = html`<input type="number" min="${min}" name="number" id="number" class="number-input" max="${max}" ${ (emptyDisabled ? 'disabled' : '') }/>`;
+
+    // correct node
+    expect(el.nodeName).to.equal('INPUT');
+
+    // correct attributes
+    expect(el.attributes.length).to.equal(6);
+    expect(el.type).to.equal('number');
+    expect(el.min).to.equal('0');
+    expect(el.name).to.equal('number');
+    expect(el.id).to.equal('number');
+    expect(el.className).to.equal('number-input');
+    expect(el.disabled).to.equal(false);
+
+    // no extraneous side-effects
+    expect(el.children.length).to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.be.empty;
+  });
+
+  it('should skip non-valid attribute substituted names', function() {
+    var nonValidAttrName = [];
+    var el = html`<div ${nonValidAttrName}="hello"/>`;
+
+    // correct node
+    expect(el.nodeName).to.equal('DIV');
+
+    // correct attributes
+    expect(el.attributes.length).to.equal(0);
+
+    // no extraneous side-effects
+    expect(el.children.length).to.equal(0);
+    expect(el.parentElement).to.be.null;
+    expect(el.textContent).to.be.empty;
+  });
+
   it('should move any children from a substituted node to the new node', function() {
     var el = html`<h${heading}><span>Hello</span></h${heading}>`;
 

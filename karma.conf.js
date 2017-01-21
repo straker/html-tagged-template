@@ -7,7 +7,7 @@ module.exports = function(config) {
       'index.js',
       'test/*.js'
     ],
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'Firefox', 'Safari'],
     reporters: ['progress', 'coverage'],
     preprocessors: {
       'index.js': ['coverage']

@@ -306,7 +306,7 @@ if (typeof window.html === 'undefined') {
                   // the entire url (will not allow any 'javascript:' or filter
                   // evasion techniques)
                   if (offset === 0 && substitutionValue.indexOf(':') !== -1) {
-                    let protocol = substitutionValue.substring(index-5, index);
+                    let protocol = substitutionValue.substring(0, 5);
                     if (protocol.indexOf('http') === -1) {
                       isRejected = true;
                     }

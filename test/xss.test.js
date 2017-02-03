@@ -151,4 +151,17 @@ describe('XSS Attack Vectors', function() {
     expect(el.getAttribute('href').indexOf('/bar')).to.equal(-1);
   });
 
+  it('should allow a URL if it has a safe protocol', function() {
+    var protocol = 'http://localhost:500';
+    var value = '/foo?id=true';
+    var el = html`<a href="${protocol}/bar${value}">`;
+
+    expect(el.getAttribute('href')).to.equal('http://localhost:500/bar/foo?id=true');
+
+    var protocol = 'https://localhost:500';
+    var el = html`<a href="${protocol}/bar${value}">`;
+
+    expect(el.getAttribute('href')).to.equal('https://localhost:500/bar/foo?id=true');
+  });
+
 });

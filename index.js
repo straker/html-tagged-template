@@ -307,7 +307,7 @@ if (typeof window.html === 'undefined') {
                   // evasion techniques)
                   if (offset === 0 && substitutionValue.indexOf(':') !== -1) {
                     let protocol = substitutionValue.substring(0, 5);
-                    if (protocol.indexOf('http') === -1) {
+                    if (protocol.indexOf('http') === -1 && protocol.indexOf('data') === -1) {
                       isRejected = true;
                     }
                   }

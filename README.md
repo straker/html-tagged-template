@@ -160,6 +160,14 @@ html`<li>Plane</li>
      <li>Bike</li>`;
 ```
 
+// substitution with node, fragment, or array of nodes or values
+html`<select>
+  ${options.map(getItem)}
+</select>`;
+function getItem(item) {
+	return html`<option value=${item.value}>${item.label}</option>`;
+}
+
 ## Goals
 
 1. [Easy to Use](#easy-to-use)

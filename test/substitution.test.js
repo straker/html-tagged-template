@@ -113,4 +113,14 @@ describe('Substitution expressions', function() {
     expect(el.parentElement).to.be.null;
     expect(el.textContent).to.equal('x = 99');
   });
+
+  it('should substitute from a variable that is a node', function() {
+  	var node = html`<p>test</p>`;
+    var el = html`<div>test${node}</div>`;
+
+    // correct node
+    expect(el.nodeName).to.equal('DIV');
+
+    expect(el.innerHTML.toLowerString()).to.equal('test<p>test</p>');
+  });
 });

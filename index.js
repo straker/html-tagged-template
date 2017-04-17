@@ -368,14 +368,27 @@ if (typeof window.html === 'undefined') {
       // --------------------------------------------------
 
       if (node.nodeType === 3 && node.nodeValue.indexOf(SUBSTITUION_INDEX) !== -1) {
-        let nodeValue = node.nodeValue.replace(SUBSTITUTION_REGEX, replaceSubstitution);
+        let html;
+        let nodeValue = node.nodeValue.replace(SUBSTITUTION_REGEX, function(match, index) {
+          let val = replaceSubstitution(match, index);
+          if (val instanceof Node) {
+            html = val;
+            return "";
+          } else {
+            return val;
+          }
+        });
 
-        // createTextNode() should not need to be escaped to prevent XSS?
-        let text = document.createTextNode(nodeValue);
+        if (html) {
+          node.parentNode.replaceChild(html, node);
+        } else {
+          // createTextNode() should not need to be escaped to prevent XSS?
+          let text = document.createTextNode(nodeValue);
 
-        // since the parent node has already gone through the iterator, we can use
-        // replaceChild() here
-        node.parentNode.replaceChild(text, node);
+          // since the parent node has already gone through the iterator, we can use
+          // replaceChild() here
+          node.parentNode.replaceChild(text, node);
+        }
       }
     }
 

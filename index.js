@@ -368,14 +368,31 @@ if (typeof window.html === 'undefined') {
       // --------------------------------------------------
 
       if (node.nodeType === 3 && node.nodeValue.indexOf(SUBSTITUION_INDEX) !== -1) {
-        let nodeValue = node.nodeValue.replace(SUBSTITUTION_REGEX, replaceSubstitution);
-
-        // createTextNode() should not need to be escaped to prevent XSS?
-        let text = document.createTextNode(nodeValue);
-
-        // since the parent node has already gone through the iterator, we can use
-        // replaceChild() here
-        node.parentNode.replaceChild(text, node);
+        let fragment;
+        let lastIndex = 0;
+        let nodeValue = node.nodeValue.replace(SUBSTITUTION_REGEX, function(match, index, offset) {
+          let text = document.createTextNode(node.nodeValue.substring(lastIndex, offset));
+          // fine with iterator
+          node.parentNode.insertBefore(text, node);
+          lastIndex = offset;
+          let val = replaceSubstitution(match, index);
+          if (!Array.isArray(val)) val = [val];
+          let ival;
+          for (let i = 0; i < val.length; i++) {
+            ival = val[i];
+            if (!(ival instanceof Node)) {
+              // createTextNode() should not need to be escaped to prevent XSS?
+              ival = document.createTextNode(ival);
+            }
+            node.parentNode.insertBefore(ival, node);
+          }
+          return ""; // so offset is the right value
+        });
+        if (lastIndex < nodeValue.length - 1) {
+          let text = document.createTextNode(nodeValue.substring(lastIndex));
+          node.parentNode.insertBefore(text, node);
+        }
+        node.parentNode.removeChild(node);
       }
     }
 

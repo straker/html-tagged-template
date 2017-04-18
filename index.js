@@ -23,8 +23,8 @@ if (typeof window.html === 'undefined') {
   // constants
   // --------------------------------------------------
 
-  const SUBSTITUION_INDEX = 'substitutionindex:';  // tag names are always all lowercase
-  const SUBSTITUTION_REGEX = new RegExp(SUBSTITUION_INDEX + '([0-9]+):', 'g');
+  const SUBSTITUTION_INDEX = 'substitutionindex:';  // tag names are always all lowercase
+  const SUBSTITUTION_REGEX = new RegExp(SUBSTITUTION_INDEX + '([0-9]+):', 'g');
 
   // rejection string is used to replace xss attacks that cannot be escaped either
   // because the escaped string is still executable
@@ -144,7 +144,7 @@ if (typeof window.html === 'undefined') {
     // (this particular placeholder will even work when used to create a DOM element)
     let str = strings[0];
     for (let i = 0; i < values.length; i++) {
-      str += SUBSTITUION_INDEX + i + ':' + strings[i+1];
+      str += SUBSTITUTION_INDEX + i + ':' + strings[i+1];
     }
 
     // template tags allow any HTML (even <tr> elements out of context)
@@ -169,7 +169,7 @@ if (typeof window.html === 'undefined') {
       // --------------------------------------------------
 
       let nodeName = node.nodeName.toLowerCase();
-      if (nodeName.indexOf(SUBSTITUION_INDEX) !== -1) {
+      if (nodeName.indexOf(SUBSTITUTION_INDEX) !== -1) {
         nodeName = nodeName.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
         // createElement() should not need to be escaped to prevent XSS?
@@ -250,7 +250,7 @@ if (typeof window.html === 'undefined') {
           let hasSubstitution = false;
 
           // name has substitution
-          if (name.indexOf(SUBSTITUION_INDEX) !== -1) {
+          if (name.indexOf(SUBSTITUTION_INDEX) !== -1) {
             name = name.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
             // ensure substitution was with a non-empty string
@@ -264,7 +264,7 @@ if (typeof window.html === 'undefined') {
 
           // value has substitution - only check if name exists (only happens
           // when name is a substitution with an empty value)
-          if (name && value.indexOf(SUBSTITUION_INDEX) !== -1) {
+          if (name && value.indexOf(SUBSTITUTION_INDEX) !== -1) {
             hasSubstitution = true;
 
             // if an uri attribute has been rejected
@@ -367,7 +367,7 @@ if (typeof window.html === 'undefined') {
       // text content substitution
       // --------------------------------------------------
 
-      if (node.nodeType === 3 && node.nodeValue.indexOf(SUBSTITUION_INDEX) !== -1) {
+      if (node.nodeType === 3 && node.nodeValue.indexOf(SUBSTITUTION_INDEX) !== -1) {
         let nodeValue = node.nodeValue.replace(SUBSTITUTION_REGEX, replaceSubstitution);
 
         // createTextNode() should not need to be escaped to prevent XSS?

@@ -191,7 +191,7 @@ if (typeof window.html === 'undefined') {
       // special case for script tags:
       // using innerHTML with a string that contains a script tag causes the script
       // tag to not be executed when added to the DOM. We'll need to create a script
-      // tag and append it's contents which will make it execute correctly.
+      // tag and append its contents which will make it execute correctly.
       // @see http://stackoverflow.com/questions/1197575/can-scripts-be-inserted-with-innerhtml
       else if (node.nodeName === 'SCRIPT') {
         let script = document.createElement('script');

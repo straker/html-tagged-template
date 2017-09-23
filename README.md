@@ -19,7 +19,7 @@ or with Bower
 let min = 0, max = 99, disabled = true;
 
 // returns an <input> tag with all attributes set
-let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?=${disabled}/>`;
+let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?="${disabled}"/>`;
 document.body.appendChild(el);
 
 // returns a DocumentFragment with two <tr> elements as children
@@ -143,7 +143,7 @@ We propose that a global tagged template string function called `html` provide t
 let min = 0, max = 99, disabled = true, text = 'Hello';
 
 // single element with attributes
-html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?=${disabled}/>`;
+html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?="${disabled}"/>`;
 
 // single element with child elements
 html`<div class="container">

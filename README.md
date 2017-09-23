@@ -19,6 +19,8 @@ or with Bower
 let min = 0, max = 99, disabled = true;
 
 // returns an <input> tag with all attributes set
+// the use of ?= denotes an optional attribute which will only be added if the
+// value is true
 let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?="${disabled}"/>`;
 document.body.appendChild(el);
 

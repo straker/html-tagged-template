@@ -113,4 +113,16 @@ describe('Substitution expressions', function() {
     expect(el.parentElement).to.be.null;
     expect(el.textContent).to.equal('x = 99');
   });
+
+  it('should allow optional attributes', function() {
+    var el = html`<button disabled?=${disabled}>Click</button>`;
+
+    expect(el.hasAttribute('disabled')).to.be.true;
+    expect(el.getAttribute('disabled')).to.equal('');
+
+    var notDisabled = false;
+    el = html`<button disabled?=${notDisabled}>Click</button>`;
+
+    expect(el.hasAttribute('disabled')).to.be.false;
+  });
 });

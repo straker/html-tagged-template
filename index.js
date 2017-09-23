@@ -334,7 +334,20 @@ if (typeof window.html === 'undefined') {
           // all of that for us
           // @see https://www.mediawiki.org/wiki/DOM-based_XSS
           if (tag || hasSubstitution) {
-            (tag || node).setAttribute(name, value);
+            let el = (tag || node);
+
+            // optional attribute
+            if (name.substr(-1) === '?') {
+              el.removeAttribute(name);
+              name = name.substring(0, name.length - 1);
+
+              if (value === 'true') {
+                el.setAttribute(name, '');
+              }
+            }
+            else {
+              el.setAttribute(name, value);
+            }
           }
         }
       }

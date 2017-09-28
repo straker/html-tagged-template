@@ -29,6 +29,10 @@ let el = html`<tr></tr><tr></tr>`
 document.body.appendChild(el);
 ```
 
+### Optional Attributes
+
+To add an attribute only when it's value is true (such as `disabled`), use `attrName?="${value}"`. If the value is true, the attribute will be added in the output, otherwise it will be omitted from the output.
+
 ## Contributing
 
 The only way this proposal will continue forward is with help from the community. If you would like to see the `html` function in the web, please upvote the [proposal on the W3C DOM repo](https://github.com/whatwg/dom/issues/150).

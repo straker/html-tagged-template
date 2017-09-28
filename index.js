@@ -339,9 +339,9 @@ if (typeof window.html === 'undefined') {
             // optional attribute
             if (name.substr(-1) === '?') {
               el.removeAttribute(name);
-              name = name.substring(0, name.length - 1);
 
               if (value === 'true') {
+                name = name.slice(0, -1);
                 el.setAttribute(name, '');
               }
             }

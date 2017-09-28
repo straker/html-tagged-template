@@ -19,13 +19,19 @@ or with Bower
 let min = 0, max = 99, disabled = true;
 
 // returns an <input> tag with all attributes set
-let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
+// the use of ?= denotes an optional attribute which will only be added if the
+// value is true
+let el = html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?="${disabled}"/>`;
 document.body.appendChild(el);
 
 // returns a DocumentFragment with two <tr> elements as children
 let el = html`<tr></tr><tr></tr>`
 document.body.appendChild(el);
 ```
+
+### Optional Attributes
+
+To add an attribute only when it's value is true (such as `disabled`), use `attrName?="${value}"`. If the value is true, the attribute will be added in the output, otherwise it will be omitted from the output.
 
 ## Contributing
 
@@ -143,7 +149,7 @@ We propose that a global tagged template string function called `html` provide t
 let min = 0, max = 99, disabled = true, text = 'Hello';
 
 // single element with attributes
-html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" ${ (disabled ? 'disabled' : '') }/>`;
+html`<input type="number" min="${min}" max="${max}" name="number" id="number" class="number-input" disabled?="${disabled}"/>`;
 
 // single element with child elements
 html`<div class="container">

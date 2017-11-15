@@ -3,9 +3,6 @@
 
 // test for es6 support of needed functionality
 try {
-  // spread operator and template strings support
-  eval('function tag(strings, ...values) {return;}; tag`test`;');  // jshint ignore:line
-
   // template tag and Array.from support
   if (!('content' in document.createElement('template') && 'from' in Array)) {
     throw new Error();
